@@ -1,0 +1,193 @@
+<root>
+	<detailLevel>
+		<prefix>	customPic/army	</prefix>
+		<format>	DXT3	</format>
+		<lodMode>	0	</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>	customPic/player	</prefix>
+		<format>	DXT3	</format>
+		<lodMode>	0	</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<!-- Flora textures have strict size and format regulations.
+			Do not change the format or reduceDim values -->
+		<contains> flora	</contains>
+		<format>   DXT3		</format>
+		<reduceDim>	0	</reduceDim>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>	speedtree	</prefix>
+		<contains>	_normal	</contains>
+		<!-- Note: these capitalised contains flags should not be needed... but the
+			speedtree assets are bjorked at the moment.. so until they are fixed...
+			here they are -->
+		<contains>	_Normal	</contains>
+		<format>	DXT5	</format>
+		<lodMode>	0	</lodMode>
+		<noFilter>	true	</noFilter>
+	</detailLevel>
+	<detailLevel>
+		<prefix>	speedtree	</prefix>
+		<contains>	composite	</contains>
+		<contains>	Composite	</contains>
+		<format>	DXT3	</format>
+		<mipCount>	20	</mipCount>
+		<horizontalMips>	true	</horizontalMips>
+		<lodMode>0</lodMode>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>system/maps</prefix>
+		<contains> _cloud </contains>
+		<format> A8R8G8B8 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>maps/landscape</prefix>
+		<contains> norms </contains>
+		<contains> normals </contains>
+		<format> A8R8G8B8 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>maps/landscape</prefix>
+		<postfix> bmp </postfix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>maps/landscape</prefix>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>maps/landscape</prefix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>sets/temperate/props</prefix>
+		<contains> norms </contains>
+		<contains> normals </contains>
+		<format> A8R8G8B8 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/temperate/props</prefix>
+		<postfix> bmp </postfix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/temperate/props</prefix>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/temperate/props</prefix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>sets/town/props</prefix>
+		<contains> norms </contains>
+		<contains> normals </contains>
+		<format> A8R8G8B8 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/town/props</prefix>
+		<postfix> bmp </postfix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/town/props</prefix>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>sets/town/props</prefix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+
+	<!-- Add by yin start -->
+<!--
+	<detailLevel>
+		<prefix>gui/maps/icon</prefix>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>0</lodMode>
+		<mipCount>	1	</mipCount>
+		<mipSize>	256	</mipSize>
+	</detailLevel>
+	<detailLevel>
+		<prefix>gui/maps/icon</prefix>
+		<format> DXT3 </format>
+		<lodMode>0</lodMode>
+		<noResize>true</noResize>
+	</detailLevel>
+-->
+	<detailLevel>
+		<prefix>gui/maps/</prefix>
+		<format> A8R8G8B8 </format>
+		<lodMode>0</lodMode>
+	</detailLevel>
+	<!-- Add by yin end -->
+
+	<detailLevel>
+		<prefix>gui</prefix>
+		<postfix> bmp </postfix>
+		<format> DXT1 </format>
+		<lodMode>0</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>gui</prefix>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>0</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<prefix>gui</prefix>
+		<format> DXT1 </format>
+		<lodMode>0</lodMode>
+	</detailLevel>
+
+	<detailLevel>
+		<prefix>system/fonts</prefix>
+		<format> DXT1 </format>
+		<lodMode>0</lodMode>
+		<noResize>true</noResize>
+	</detailLevel>
+
+	<detailLevel>
+		<contains> norms </contains>
+		<contains> normals </contains>
+		<contains> Normals </contains>
+		<format> A8R8G8B8 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<postfix> bmp </postfix>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<postfix> tga </postfix>
+		<format> DXT3 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+	<detailLevel>
+		<format> DXT1 </format>
+		<lodMode>1</lodMode>
+	</detailLevel>
+</root>

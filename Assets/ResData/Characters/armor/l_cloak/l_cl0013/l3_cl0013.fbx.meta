@@ -1,0 +1,131 @@
+fileFormatVersion: 2
+guid: 8c4b3f0da48c42947957b5e341c5e73d
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Bip01
+    100002: Bip01 Head
+    100004: Bip01 HeadBlendBonel3_cl0013
+    100006: Bip01 L Clavicle
+    100008: Bip01 L ClavicleBlendBonel3_cl0013
+    100010: Bip01 L UpperArm
+    100012: Bip01 L UpperArmBlendBonel3_cl0013
+    100014: Bip01 Neck
+    100016: Bip01 NeckBlendBonel3_cl0013
+    100018: Bip01 Pelvis
+    100020: Bip01 R Clavicle
+    100022: Bip01 R ClavicleBlendBonel3_cl0013
+    100024: Bip01 R UpperArm
+    100026: Bip01 R UpperArmBlendBonel3_cl0013
+    100028: Bip01 Spine
+    100030: Bip01 Spine1
+    100032: Bip01 Spine1BlendBonel3_cl0013
+    100034: Bip01 Spine2
+    100036: Bip01 Spine2BlendBonel3_cl0013
+    100038: Bone L Cloak1
+    100040: Bone L Cloak1BlendBonel3_cl0013
+    100042: Bone L Cloak2
+    100044: Bone L Cloak2BlendBonel3_cl0013
+    100046: Bone L Cloak3
+    100048: Bone L Cloak3BlendBonel3_cl0013
+    100050: Bone R Cloak1
+    100052: Bone R Cloak1BlendBonel3_cl0013
+    100054: Bone R Cloak2
+    100056: Bone R Cloak2BlendBonel3_cl0013
+    100058: Bone R Cloak3
+    100060: Bone R Cloak3BlendBonel3_cl0013
+    100062: HP_horse
+    100064: l3_cl0013
+    100066: //RootNode
+    100068: Scene Root
+    400000: Bip01
+    400002: Bip01 Head
+    400004: Bip01 HeadBlendBonel3_cl0013
+    400006: Bip01 L Clavicle
+    400008: Bip01 L ClavicleBlendBonel3_cl0013
+    400010: Bip01 L UpperArm
+    400012: Bip01 L UpperArmBlendBonel3_cl0013
+    400014: Bip01 Neck
+    400016: Bip01 NeckBlendBonel3_cl0013
+    400018: Bip01 Pelvis
+    400020: Bip01 R Clavicle
+    400022: Bip01 R ClavicleBlendBonel3_cl0013
+    400024: Bip01 R UpperArm
+    400026: Bip01 R UpperArmBlendBonel3_cl0013
+    400028: Bip01 Spine
+    400030: Bip01 Spine1
+    400032: Bip01 Spine1BlendBonel3_cl0013
+    400034: Bip01 Spine2
+    400036: Bip01 Spine2BlendBonel3_cl0013
+    400038: Bone L Cloak1
+    400040: Bone L Cloak1BlendBonel3_cl0013
+    400042: Bone L Cloak2
+    400044: Bone L Cloak2BlendBonel3_cl0013
+    400046: Bone L Cloak3
+    400048: Bone L Cloak3BlendBonel3_cl0013
+    400050: Bone R Cloak1
+    400052: Bone R Cloak1BlendBonel3_cl0013
+    400054: Bone R Cloak2
+    400056: Bone R Cloak2BlendBonel3_cl0013
+    400058: Bone R Cloak3
+    400060: Bone R Cloak3BlendBonel3_cl0013
+    400062: HP_horse
+    400064: //RootNode
+    400066: l3_cl0013
+    400068: Scene Root
+    4300000: l3_cl0013
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: l3_cl0013
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 1
+  userData: 

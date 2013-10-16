@@ -1,0 +1,12 @@
+<root>
+	<frames>abcdefgh</frames>
+	<fps> 10.0 </fps>
+	<texture>maps/fx/fire/fire_1.bmp</texture>
+	<texture>maps/fx/fire/fire_2.bmp</texture>
+	<texture>maps/fx/fire/fire_3.bmp</texture>
+	<texture>maps/fx/fire/fire_4.bmp</texture>
+	<texture>maps/fx/fire/fire_5.bmp</texture>
+	<texture>maps/fx/fire/fire_6.bmp</texture>
+	<texture>maps/fx/fire/fire_7.bmp</texture>
+	<texture>maps/fx/fire/fire_8.bmp</texture>
+</root>

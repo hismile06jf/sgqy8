@@ -1,0 +1,9 @@
+<fx_explodable_chunks.mfm>
+	<fx>	shaders/std_effects/lightonly.fx	</fx>
+	<fx>	maps/fx/fx_explodable_chunks.fx	</fx>
+	<property>	diffuseMap
+		<Texture>	maps/fx/fx_explodable_chunks.dds	</Texture>
+	</property>
+	<collisionFlags>	0	</collisionFlags>
+	<materialKind>	0	</materialKind>
+</fx_explodable_chunks.mfm>
