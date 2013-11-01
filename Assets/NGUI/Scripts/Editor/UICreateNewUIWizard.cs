@@ -34,7 +34,7 @@ public class UICreateNewUIWizard : EditorWindow
 
 	void OnGUI ()
 	{
-		EditorGUIUtility.LookLikeControls(80f);
+		NGUIEditorTools.SetLabelWidth(80f);
 
 		GUILayout.Label("Create a new UI with the following parameters:");
 		NGUIEditorTools.DrawSeparator();
@@ -91,7 +91,6 @@ public class UICreateNewUIWizard : EditorWindow
 		{
 			// No camera requested -- simply add a panel
 			UIPanel panel = NGUITools.AddChild<UIPanel>(root.gameObject);
-			panel.sortByDepth = true;
 			Selection.activeGameObject = panel.gameObject;
 		}
 		else
@@ -101,7 +100,7 @@ public class UICreateNewUIWizard : EditorWindow
 			bool clearColor = true;
 			bool audioListener = true;
 
-			List<Camera> cameras = NGUIEditorTools.FindInScene<Camera>();
+			List<Camera> cameras = NGUIEditorTools.FindAll<Camera>();
 
 			foreach (Camera c in cameras)
 			{
@@ -155,13 +154,11 @@ public class UICreateNewUIWizard : EditorWindow
 
 				// And finally -- the first UI panel
 				UIPanel panel = NGUITools.AddChild<UIPanel>(anchor.gameObject);
-				panel.sortByDepth = true;
 				Selection.activeGameObject = panel.gameObject;
 			}
 			else
 			{
 				UIPanel panel = NGUITools.AddChild<UIPanel>(root);
-				panel.sortByDepth = true;
 				Selection.activeGameObject = panel.gameObject;
 			}
 		}

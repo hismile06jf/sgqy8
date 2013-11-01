@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 [ExecuteInEditMode]
 [AddComponentMenu("NGUI/Interaction/Table")]
-public class UITable : MonoBehaviour
+public class UITable : UIWidgetContainer
 {
 	public delegate void OnReposition ();
 
@@ -26,12 +26,12 @@ public class UITable : MonoBehaviour
 
 	public int columns = 0;
 	public Direction direction = Direction.Down;
-	public Vector2 padding = Vector2.zero;
 	public bool sorted = false;
 	public bool hideInactive = true;
-	public bool repositionNow = false;
 	public bool keepWithinPanel = false;
+	public bool repositionNow = false;
 	public OnReposition onReposition;
+	public Vector2 padding = Vector2.zero;
 
 	UIPanel mPanel;
 	UIDraggablePanel mDrag;
@@ -129,8 +129,8 @@ public class UITable : MonoBehaviour
 			}
 			else
 			{
-				pos.y = yOffset + b.extents.y - b.center.y;
-				pos.y += (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
+				pos.y = yOffset + (b.extents.y - b.center.y);
+				pos.y -= (b.max.y - b.min.y - bc.max.y + bc.min.y) * 0.5f - padding.y;
 			}
 
 			xOffset += br.max.x - br.min.x + padding.x * 2f;
@@ -188,6 +188,9 @@ public class UITable : MonoBehaviour
 			mPanel = NGUITools.FindInParents<UIPanel>(gameObject);
 			mDrag = NGUITools.FindInParents<UIDraggablePanel>(gameObject);
 		}
+#if UNITY_EDITOR
+		if (Application.isPlaying)
+#endif
 		Reposition();
 	}
 

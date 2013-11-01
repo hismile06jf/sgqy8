@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 
 [AddComponentMenu("NGUI/Interaction/Button Color")]
-public class UIButtonColor : MonoBehaviour
+public class UIButtonColor : UIWidgetContainer
 {
 	/// <summary>
 	/// Target with a widget, renderer, or light that will have its color tweened.
@@ -48,11 +48,17 @@ public class UIButtonColor : MonoBehaviour
 	{
 		get
 		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying) return Color.white;
+#endif
 			Start();
 			return mColor;
 		}
 		set
 		{
+#if UNITY_EDITOR
+			if (!Application.isPlaying) return;
+#endif
 			Start();
 			mColor = value;
 		}
@@ -67,9 +73,13 @@ public class UIButtonColor : MonoBehaviour
 		}
 	}
 
-	protected virtual void OnEnable () { if (mStarted && mHighlighted) OnHover(UICamera.IsHighlighted(gameObject)); }
+	protected virtual void OnEnable ()
+	{
+		if (mStarted && mHighlighted)
+			OnHover(UICamera.IsHighlighted(gameObject));
+	}
 
-	void OnDisable ()
+	protected virtual void OnDisable ()
 	{
 		if (mStarted && tweenTarget != null)
 		{

@@ -93,8 +93,7 @@ public class UITexture : UIWidget
 			if (!mCreatingMat && mDynamicMat == null)
 			{
 				mCreatingMat = true;
-
-				if (mShader == null) mShader = Shader.Find("Unlit/Texture");
+				if (mShader == null) mShader = Shader.Find("Unlit/Transparent Colored");
 
 				Cleanup();
 
@@ -158,9 +157,56 @@ public class UITexture : UIWidget
 				mPanel = null;
 				mTexture = value;
 				mat.mainTexture = value;
+				MarkAsChangedLite();
 
 				if (enabled) CreatePanel();
+				if (mPanel != null) mPanel.Refresh();
 			}
+		}
+	}
+
+	/// <summary>
+	/// Widget's dimensions used for drawing. X = left, Y = bottom, Z = right, W = top.
+	/// This function automatically adds 1 pixel on the edge if the texture's dimensions are not even.
+	/// It's used to achieve pixel-perfect sprites even when an odd dimension widget happens to be centered.
+	/// </summary>
+
+	Vector4 drawingDimensions
+	{
+		get
+		{
+			float left = 0f;
+			float bottom = 0f;
+			float right = 0f;
+			float top = 0f;
+
+			Texture tex = mainTexture;
+			Rect rect = (tex != null) ? new Rect(0f, 0f, tex.width, tex.height) : new Rect(0f, 0f, mWidth, mHeight);
+
+			Vector2 pv = pivotOffset;
+			int w = Mathf.RoundToInt(rect.width);
+			int h = Mathf.RoundToInt(rect.height);
+
+			float paddedW = ((w & 1) == 0) ? w : w + 1;
+			float paddedH = ((h & 1) == 0) ? h : h + 1;
+
+			Vector4 v = new Vector4(
+				left / paddedW,
+				bottom / paddedH,
+				(w - right) / paddedW,
+				(h - top) / paddedH);
+
+			v.x -= pv.x;
+			v.y -= pv.y;
+			v.z -= pv.x;
+			v.w -= pv.y;
+
+			v.x *= mWidth;
+			v.y *= mHeight;
+			v.z *= mWidth;
+			v.w *= mHeight;
+
+			return v;
 		}
 	}
 
@@ -189,11 +235,14 @@ public class UITexture : UIWidget
 
 		if (tex != null)
 		{
-			Vector3 scale = cachedTransform.localScale;
-			scale.x = tex.width * uvRect.width;
-			scale.y = tex.height * uvRect.height;
-			scale.z = 1f;
-			cachedTransform.localScale = scale;
+			int x = tex.width;
+			if ((x & 1) == 1) ++x;
+
+			int y = tex.height;
+			if ((y & 1) == 1) ++y;
+
+			width = x;
+			height = y;
 		}
 		base.MakePixelPerfect();
 	}
@@ -207,16 +256,18 @@ public class UITexture : UIWidget
 		Color colF = color;
 		colF.a *= mPanel.alpha;
 		Color32 col = premultipliedAlpha ? NGUITools.ApplyPMA(colF) : colF;
-	
-		verts.Add(new Vector3(1f,  0f, 0f));
-		verts.Add(new Vector3(1f, -1f, 0f));
-		verts.Add(new Vector3(0f, -1f, 0f));
-		verts.Add(new Vector3(0f,  0f, 0f));
 
-		uvs.Add(new Vector2(mRect.xMax, mRect.yMax));
-		uvs.Add(new Vector2(mRect.xMax, mRect.yMin));
+		Vector4 v = drawingDimensions;
+
+		verts.Add(new Vector3(v.x, v.y));
+		verts.Add(new Vector3(v.x, v.w));
+		verts.Add(new Vector3(v.z, v.w));
+		verts.Add(new Vector3(v.z, v.y));
+
 		uvs.Add(new Vector2(mRect.xMin, mRect.yMin));
 		uvs.Add(new Vector2(mRect.xMin, mRect.yMax));
+		uvs.Add(new Vector2(mRect.xMax, mRect.yMax));
+		uvs.Add(new Vector2(mRect.xMax, mRect.yMin));
 
 		cols.Add(col);
 		cols.Add(col);

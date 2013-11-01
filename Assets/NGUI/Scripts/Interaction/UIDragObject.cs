@@ -11,7 +11,7 @@ using System.Collections;
 /// </summary>
 
 [AddComponentMenu("NGUI/Interaction/Drag Object")]
-public class UIDragObject : IgnoreTimeScale
+public class UIDragObject : MonoBehaviour
 {
 	public enum DragEffect
 	{
@@ -122,7 +122,7 @@ public class UIDragObject : IgnoreTimeScale
 
 	void OnDrag (Vector2 delta)
 	{
-		if (mPressed && enabled && NGUITools.GetActive(gameObject) && target != null)
+		if (mPressed && mTouchID == UICamera.currentTouchID && enabled && NGUITools.GetActive(gameObject) && target != null)
 		{
 			UICamera.currentTouch.clickNotification = UICamera.ClickNotification.BasedOnDelta;
 
@@ -182,7 +182,7 @@ public class UIDragObject : IgnoreTimeScale
 
 	void LateUpdate ()
 	{
-		float delta = UpdateRealTimeDelta();
+		float delta = RealTime.deltaTime;
 		if (target == null) return;
 
 		if (mPressed)

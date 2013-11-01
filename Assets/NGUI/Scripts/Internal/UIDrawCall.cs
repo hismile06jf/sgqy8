@@ -14,12 +14,17 @@ using System.Collections.Generic;
 [AddComponentMenu("NGUI/Internal/Draw Call")]
 public class UIDrawCall : MonoBehaviour
 {
-	public enum Clipping
+	/// <summary>
+	/// All draw calls created by the panels.
+	/// </summary>
+
+	static public BetterList<UIDrawCall> list = new BetterList<UIDrawCall>();
+
+	public enum Clipping : int
 	{
-		None,
-		HardClip,	// Obsolete. Used to use clip() but it's not supported by some devices.
-		AlphaClip,	// Adjust the alpha, compatible with all devices
-		SoftClip,	// Alpha-based clipping with a softened edge
+		None = 0,
+		AlphaClip = 2,	// Adjust the alpha, compatible with all devices
+		SoftClip = 3,	// Alpha-based clipping with a softened edge
 	}
 
 	Transform		mTrans;			// Cached transform
@@ -32,40 +37,91 @@ public class UIDrawCall : MonoBehaviour
 	Vector4			mClipRange;		// Clipping, if used
 	Vector2			mClipSoft;		// Clipping softness
 	Material		mMat;			// Instantiated material
-	Material		mDepthMat;		// Depth-writing material, created if necessary
 	int[]			mIndices;		// Cached indices
 
-	bool mUseDepth = false;
+	bool mDirty = false;
 	bool mReset = true;
 	bool mEven = true;
-	int mDepth = 0;
+	int mRenderQueue = 0;
 
 	/// <summary>
-	/// Whether an additional pass will be created to render the geometry to the depth buffer first.
+	/// Panel managing this draw call.
 	/// </summary>
 
-	public bool depthPass { get { return mUseDepth; } set { if (mUseDepth != value) { mUseDepth = value; mReset = true; } } }
+	public UIPanel panel { get; set; }
 
 	/// <summary>
-	/// Draw order used by the draw call.
+	/// Whether the draw call needs to be re-created.
 	/// </summary>
 
-	public int depth
+	public bool isDirty { get { return mDirty; } set { mDirty = value; } }
+
+	/// <summary>
+	/// Render queue used by the draw call.
+	/// </summary>
+
+	public int renderQueue
 	{
 		get
 		{
-			return mDepth;
+			return mRenderQueue;
 		}
 		set
 		{
-			if (mDepth != value)
+			if (mRenderQueue != value)
 			{
-				mDepth = value;
+				mRenderQueue = value;
+
 				if (mMat != null && mSharedMat != null)
+				{
 					mMat.renderQueue = mSharedMat.renderQueue + value;
+#if UNITY_EDITOR
+					if (mRen != null) mRen.enabled = isActive;
+#endif
+				}
 			}
 		}
 	}
+
+#if UNITY_EDITOR
+	public string keyName { get { return "Draw Call " + (1 + mRenderQueue); } }
+
+	public bool showDetails { get { return UnityEditor.EditorPrefs.GetBool(keyName, true); } }
+
+	/// <summary>
+	/// Whether the draw call is currently active.
+	/// </summary>
+
+	public bool isActive
+	{
+		get
+		{
+			return mActive;
+			//return UnityEditor.EditorPrefs.GetBool(keyName, true);
+		}
+		set
+		{
+			if (mActive != value)
+			{
+				mActive = value;
+
+				if (mRen != null)
+				{
+					mRen.enabled = value;
+					UnityEditor.EditorUtility.SetDirty(gameObject);
+				}
+			}
+			//UnityEditor.EditorPrefs.SetBool(keyName, value);
+			
+			//if (mRen != null)
+			//{
+			//    mRen.enabled = value;
+			//    UnityEditor.EditorUtility.SetDirty(gameObject);
+			//}
+		}
+	}
+	bool mActive = true;
+#endif
 
 	/// <summary>
 	/// Transform is cached for speed and efficiency.
@@ -77,13 +133,19 @@ public class UIDrawCall : MonoBehaviour
 	/// Material used by this screen.
 	/// </summary>
 
-	public Material material { get { return mSharedMat; } set { mSharedMat = value; } }
+	public Material baseMaterial { get { return mSharedMat; } set { mSharedMat = value; } }
+
+	/// <summary>
+	/// Dynamically created material used by the draw call to actually draw the geometry.
+	/// </summary>
+
+	public Material dynamicMaterial { get { return mMat; } }
 
 	/// <summary>
 	/// Texture used by the material.
 	/// </summary>
 
-	public Texture mainTexture { get { return mMat.mainTexture; } set { mMat.mainTexture = value; } }
+	public Texture mainTexture { get { return (mMat != null) ? mMat.mainTexture : null; } set { if (mMat != null) mMat.mainTexture = value; } }
 
 	/// <summary>
 	/// The number of triangles in this draw call.
@@ -169,6 +231,26 @@ public class UIDrawCall : MonoBehaviour
 	}
 
 	/// <summary>
+	/// Rebuild the draw call's material.
+	/// </summary>
+
+	public void RebuildMaterial ()
+	{
+		NGUITools.DestroyImmediate(mMat);
+		mMat = new Material(mSharedMat);
+		mMat.hideFlags = HideFlags.DontSave;
+		mMat.CopyPropertiesFromMaterial(mSharedMat);
+		
+		// Automatically replace "GUI/Text Shader" with "Unlit/Text"
+		if (mMat.shader != null && mMat.shader.name == "GUI/Text Shader")
+		{
+			Shader shader = Shader.Find("Unlit/Text");
+			if (shader != null) mMat.shader = shader;
+		}
+		mMat.renderQueue = mSharedMat.renderQueue + mRenderQueue;
+	}
+
+	/// <summary>
 	/// Update the renderer's materials.
 	/// </summary>
 
@@ -177,13 +259,7 @@ public class UIDrawCall : MonoBehaviour
 		bool useClipping = (mClipping != Clipping.None);
 
 		// Create a temporary material
-		if (mMat == null)
-		{
-			mMat = new Material(mSharedMat);
-			mMat.hideFlags = HideFlags.DontSave;
-			mMat.CopyPropertiesFromMaterial(mSharedMat);
-			mMat.renderQueue = mSharedMat.renderQueue + mDepth;
-		}
+		if (mMat == null) RebuildMaterial();
 
 		// If clipping should be used, we need to find a replacement shader
 		if (useClipping && mClipping != Clipping.None)
@@ -194,13 +270,13 @@ public class UIDrawCall : MonoBehaviour
 
 			// Figure out the normal shader's name
 			string shaderName = mSharedMat.shader.name;
+			shaderName = shaderName.Replace("GUI/Text Shader", "Unlit/Text");
 			shaderName = shaderName.Replace(alpha, "");
 			shaderName = shaderName.Replace(soft, "");
 
 			// Try to find the new shader
-			if (mClipping == Clipping.HardClip ||
-				mClipping == Clipping.AlphaClip) shader = Shader.Find(shaderName + alpha);
-			else if (mClipping == Clipping.SoftClip) shader = Shader.Find(shaderName + soft);
+			if (mClipping == Clipping.SoftClip) shader = Shader.Find(shaderName + soft);
+			else shader = Shader.Find(shaderName + alpha);
 
 			// If there is a valid shader, assign it to the custom material
 			if (shader != null)
@@ -214,32 +290,7 @@ public class UIDrawCall : MonoBehaviour
 			}
 		}
 
-		// If depth pass should be used, create the depth material
-		if (mUseDepth)
-		{
-			if (mDepthMat == null)
-			{
-				Shader shader = Shader.Find("Unlit/Depth Cutout");
-				mDepthMat = new Material(shader);
-				mDepthMat.hideFlags = HideFlags.DontSave;
-			}
-			mDepthMat.mainTexture = mSharedMat.mainTexture;
-		}
-		else if (mDepthMat != null)
-		{
-			NGUITools.Destroy(mDepthMat);
-			mDepthMat = null;
-		}
-
-		if (mDepthMat != null)
-		{
-			// If we're already using this material, do nothing
-			if (mRen.sharedMaterials != null && mRen.sharedMaterials.Length == 2 && mRen.sharedMaterials[1] == mMat) return;
-
-			// Set the double material
-			mRen.sharedMaterials = new Material[] { mDepthMat, mMat };
-		}
-		else if (mRen.sharedMaterial != mMat)
+		if (mRen.sharedMaterial != mMat)
 		{
 			mRen.sharedMaterials = new Material[] { mMat };
 		}
@@ -264,6 +315,9 @@ public class UIDrawCall : MonoBehaviour
 			if (mRen == null)
 			{
 				mRen = gameObject.AddComponent<MeshRenderer>();
+#if UNITY_EDITOR
+				mRen.enabled = isActive;
+#endif
 				UpdateMaterials();
 			}
 			else if (mMat != null && mMat.mainTexture != mSharedMat.mainTexture)
@@ -354,6 +408,5 @@ public class UIDrawCall : MonoBehaviour
 		NGUITools.DestroyImmediate(mMesh0);
 		NGUITools.DestroyImmediate(mMesh1);
 		NGUITools.DestroyImmediate(mMat);
-		NGUITools.DestroyImmediate(mDepthMat);
 	}
 }
