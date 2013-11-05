@@ -29,14 +29,14 @@ SubShader {
 		fixed4 m = tex2D(_MainTex, IN.uv_MainTex);
 		fixed4 c = tex2D(_ClothTex, IN.uv_MainTex) * _ClothColor;
 	
-		if(c.a >= 0.999)
-		{
-			o.Albedo = c.rgb * c.a;
-		}
-		else
-		{
+		//if(c.a >= 0.8)
+		//{
+		//	o.Albedo = c.rgb * c.a;
+		//}
+		//else
+		//{
 			o.Albedo = m.rgb * m.a + c.rgb * c.a;
-		}
+		//}
 		o.Albedo = m.rgb * m.a + c.rgb * c.a;
 		o.Alpha = m.a + c.a;
 	}
