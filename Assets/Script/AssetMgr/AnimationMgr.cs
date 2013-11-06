@@ -10,7 +10,7 @@ public class AnimationMgr : MonoBehaviour {
 			if(null == mInstance) 
 			{
 				GameObject obj = new GameObject("GameLogic/AssetMgr/AnimationMgr");
-				GameObject.DontDestroyOnLoad(obj);
+				DontDestroyOnLoad(obj);
 				mInstance = obj.AddComponent<AnimationMgr>();
 			}
 			return mInstance;
