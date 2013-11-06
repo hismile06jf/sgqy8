@@ -5,6 +5,8 @@ public class ModelTest : MonoBehaviour {
 	
 	//file://D:/WorkSpace/sgqy8thunk/AssetBundle/so0009.unity3d
 	public string[] modelPath = new string[0];
+	public Texture[] mainTex = new Texture[0];
+	public Texture[] clothTex = new Texture[0];
 	
 	// Use this for initialization
 	void Start () {
@@ -21,16 +23,34 @@ public class ModelTest : MonoBehaviour {
 		ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading);
 	}
 	
+	float posX = -5f;
+	int texIndex = 0;
 	void OnAnimLoad(string modelPath, GameObject model)
 	{
 		if(null != model) 
 		{
 			GameObject objNew = GameObject.Instantiate(model) as GameObject;
-			objNew.transform.localPosition = Vector3.zero;
+			objNew.transform.localPosition = new Vector3(posX, 0, 0);
 			objNew.transform.parent = null;
+			
+			Color cor = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+			SkinnedMeshRenderer[] rs = objNew.GetComponentsInChildren<SkinnedMeshRenderer>();
+			foreach(SkinnedMeshRenderer r in rs)
+			{
+				r.material.SetTexture("_MainTex", mainTex[texIndex]);
+				r.material.SetTexture("_ClothTex", clothTex[texIndex]);
+				r.material.SetColor("_ClothColor", cor);
+			}
+			
+			posX += 1f;
+			texIndex += 1;
+			if(texIndex > 1)
+			{
+				texIndex = 0;
+			}
 		}
 		
-		TimeMgr.Instance.Exec(DelModel, modelPath, 10000);
+		//TimeMgr.Instance.Exec(DelModel, modelPath, 10000);
 	}
 	
 	void DelModel(object param)

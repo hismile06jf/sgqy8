@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class ModelMgr : MonoBehaviour {
@@ -26,11 +27,15 @@ public class ModelMgr : MonoBehaviour {
 		if(m_dictModel.ContainsKey(modelPath))
 		{
 			res = m_dictModel[modelPath];
-			if(null != res.Res)
+			if(null != res.AssetWWW)
 			{
 				res.AddRef();
-				if(null != progressCB) progressCB(modelPath, 1f);
-				if(null != loadCB) loadCB(modelPath, res.Res);
+				
+				if(null != loadCB) res.LoadCallBack += loadCB;
+				if(null != progressCB) res.ProgressCallBack += progressCB;
+				//if(null != progressCB) progressCB(modelPath, 1f);
+				//if(null != loadCB) loadCB(modelPath, res.Res);
+				OnAssetLoadCallBack(true, res);
 				return;
 			}
 		}
@@ -87,9 +92,11 @@ public class ModelMgr : MonoBehaviour {
 		
 		if(success)
 		{
-			GameObject gameObj = res.AssetWWW.assetBundle.mainAsset as GameObject;
-			res.Res = gameObj;
+			//GameObject gameObj = res.AssetWWW.assetBundle.mainAsset as GameObject;
+			//res.Res = gameObj;
 			//res.AssetWWW.assetBundle.Unload(false);
+			
+			StartCoroutine(LoadFromBundle(res));
 		}
 		
 //		if(null != res.AssetWWW)
@@ -98,6 +105,21 @@ public class ModelMgr : MonoBehaviour {
 //			res.AssetWWW = null;
 //		}
 		
+//		if(null != res.LoadCallBack) 
+//		{	
+//			res.LoadCallBack(res.ResPath, res.Res);
+//			res.LoadCallBack = null;
+//			res.ProgressCallBack = null;
+//		}
+	}
+	
+	IEnumerator LoadFromBundle(ResCounter<GameObject> res)
+	{
+		Object[] objes =  res.AssetWWW.assetBundle.LoadAll();
+		AssetBundleRequest request = res.AssetWWW.assetBundle.LoadAsync("so0009_1", typeof(GameObject));
+		yield return request;
+		
+		res.Res = request.asset as GameObject;
 		if(null != res.LoadCallBack) 
 		{	
 			res.LoadCallBack(res.ResPath, res.Res);
