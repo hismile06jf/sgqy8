@@ -11,6 +11,7 @@ this is script is just executed one time... */
  
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
  
  
 public class CombineSkinnedMeshes : MonoBehaviour {
@@ -22,8 +23,8 @@ public class CombineSkinnedMeshes : MonoBehaviour {
 		public bool receiveShadows = true;
  
 	/* This is for very particular use, you must set it regarding to your Character */
-		public static int VERTEX_NUMBER = 1024; //[Your Vertices Number]; //The number of vertices total of the character
-		public static int BONE_NUMBER = 1024; //[Your Bones Number];		//The number of bones total
+		public static int VERTEX_NUMBER = 1024 * 1024; //[Your Vertices Number]; //The number of vertices total of the character
+		public static int BONE_NUMBER = 1024 * 1024; //[Your Bones Number];		//The number of bones total
  
 	// Use this for initialization
 	void Start () {
@@ -102,7 +103,7 @@ public class CombineSkinnedMeshes : MonoBehaviour {
 					//If Bone is New ...
 					if(!flag)
 					{
-						//Debug.Log("Inserted bone:"+smrenderer.bones[x].name);
+						Debug.Log("Inserted bone:"+smrenderer.bones[x].name);
 						for(int f=0;f<totalBones.Length;f++)
 						{
 							//Insert bone at the firs free position
@@ -152,14 +153,39 @@ public class CombineSkinnedMeshes : MonoBehaviour {
 		objRenderer.castShadows = castShadows;
 		objRenderer.receiveShadows = receiveShadows;
  
+		//The Sum of All Child Bones
+		List<Transform> listTotalBones = new List<Transform>(); //new Transform[BONE_NUMBER];//Total of Bones for my Example
+		//The Sum of the BindPoses
+		List<Matrix4x4> listTotalBindPoses = new List<Matrix4x4>(); //new Matrix4x4[BONE_NUMBER];//Total of BindPoses
+		//The Sum of BoneWeights
+		List<BoneWeight> listTotalBoneWeight = new List<BoneWeight>(); //new BoneWeight[VERTEX_NUMBER];//total of Vertices for my Example
+		
+		for(int i = 0; i < totalBones.Length; ++i)
+		{
+			if(null == totalBones[i]) break;
+			listTotalBones.Add(totalBones[i]);
+		}
+		
+		for(int i = 0; i < b_offset; ++i)
+		{
+			if(null == totalBoneWeight[i]) break;
+			listTotalBoneWeight.Add(totalBoneWeight[i]);
+		}
+		
+		for(int i = 0; i < offset; ++i)
+		{
+			if(null == totalBindPoses[i]) break;
+			listTotalBindPoses.Add(totalBindPoses[i]);
+		}
+		
 		//Setting Bindposes
-		objRenderer.sharedMesh.bindposes = totalBindPoses;
+		objRenderer.sharedMesh.bindposes = listTotalBindPoses.ToArray();
  
 		//Setting BoneWeights
-		objRenderer.sharedMesh.boneWeights = totalBoneWeight;
+		objRenderer.sharedMesh.boneWeights = listTotalBoneWeight.ToArray();
  
 		//Setting bones
-		objRenderer.bones =totalBones;
+		objRenderer.bones = listTotalBones.ToArray();
  
 		//Setting Materials
 		objRenderer.sharedMaterials = (Material[])myMaterials.ToArray(typeof(Material));
@@ -170,12 +196,12 @@ public class CombineSkinnedMeshes : MonoBehaviour {
 		//Enable Mesh
 		objRenderer.enabled = true;					
  
-		/* 	Debug.Log("############################################");
+		 	Debug.Log("############################################");
 		Debug.Log("M Materials "+myMaterials.Count);
 		Debug.Log("bindPoses "+objRenderer.sharedMesh.bindposes.Length);
 		Debug.Log("boneWeights "+objRenderer.sharedMesh.boneWeights.Length);
 		Debug.Log("Bones "+objRenderer.bones.Length);
-		Debug.Log("Vertices "+objRenderer.sharedMesh.vertices.Length); */
+		Debug.Log("Vertices "+objRenderer.sharedMesh.vertices.Length);
  
 	}
  

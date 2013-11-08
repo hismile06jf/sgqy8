@@ -44,6 +44,8 @@ public class ModelTest : MonoBehaviour {
 				r.material.SetColor("_ClothColor", cor);
 			}
 			
+			objNew.AddComponent<CombineSkinnedMeshes>();
+			
 			posX += 1f;
 			texIndex += 1;
 			if(texIndex > 1)
