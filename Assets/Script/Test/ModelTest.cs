@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ModelTest : MonoBehaviour {
 	
@@ -25,6 +26,7 @@ public class ModelTest : MonoBehaviour {
 	
 	float posX = -5f;
 	int texIndex = 0;
+	List<GameObject> objList = new List<GameObject>();
 	void OnAnimLoad(string modelPath, GameObject model)
 	{
 		if(null != model) 
@@ -48,14 +50,20 @@ public class ModelTest : MonoBehaviour {
 			{
 				texIndex = 0;
 			}
+			
+			objList.Add(objNew);
 		}
 		
-		//TimeMgr.Instance.Exec(DelModel, modelPath, 10000);
+		TimeMgr.Instance.Exec(DelModel, modelPath, 5000);
 	}
 	
 	void DelModel(object param)
 	{
 		string parh = (string)param;
+//		for(int i = 0; i < objList.Count; ++i)
+//		{
+//			GameObject.DestroyImmediate(objList[i], true);
+//		}
 		ModelMgr.Instance.UnLoadModel(parh);
 	}
 	

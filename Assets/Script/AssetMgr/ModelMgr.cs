@@ -68,6 +68,7 @@ public class ModelMgr : MonoBehaviour {
 	
 	void UnLoadRes(ResCounter<GameObject> res)
 	{
+		//Do Not Destroy Here
 		if(null != res.Res) Object.DestroyImmediate(res.Res, true);
 		if(null != res.AssetWWW) 
 		{
@@ -92,27 +93,26 @@ public class ModelMgr : MonoBehaviour {
 		
 		if(success)
 		{
-			//GameObject gameObj = res.AssetWWW.assetBundle.mainAsset as GameObject;
-			//res.Res = gameObj;
+			if(null == res.Res)
+			{
+				res.Res = res.AssetWWW.assetBundle.mainAsset as GameObject;
+			}
+			/*  调用Unload(false)的话会减少asset数量，但是很少，测试只有1，而且只能调用一次，下次调用Unload(true)时，不会卸载资源  */
+			/*  assetBundle.Unload 只能调用一次，为了防止泄露，只在删除模型的时候调用  */
 			//res.AssetWWW.assetBundle.Unload(false);
-			
-			StartCoroutine(LoadFromBundle(res));
+			if(null != res.LoadCallBack) 
+			{	
+				res.LoadCallBack(res.ResPath, res.Res);
+				res.LoadCallBack = null;
+				res.ProgressCallBack = null;
+			}
+			//res.AssetWWW.Dispose();
+			//res.AssetWWW = null;
+			//StartCoroutine(LoadFromBundle(res));
 		}
-		
-//		if(null != res.AssetWWW)
-//		{
-//			res.AssetWWW.Dispose();
-//			res.AssetWWW = null;
-//		}
-		
-//		if(null != res.LoadCallBack) 
-//		{	
-//			res.LoadCallBack(res.ResPath, res.Res);
-//			res.LoadCallBack = null;
-//			res.ProgressCallBack = null;
-//		}
 	}
 	
+	//LoadFromBundle saync
 	IEnumerator LoadFromBundle(ResCounter<GameObject> res)
 	{
 		Object[] objes =  res.AssetWWW.assetBundle.LoadAll();

@@ -112,7 +112,7 @@ public class TimeMgr : MonoBehaviour {
 	List<ParamDelegate> listParamClear = new List<ParamDelegate>();
 	// Update is called once per frame
 	void Update () {
-		int delta = (int)(Time.fixedTime * 1000f);
+		int delta = (int)(Time.fixedDeltaTime * 1000f);
 		
 		//
 		for(int i = listVoidFunc.Count - 1; i >= 0; --i)
