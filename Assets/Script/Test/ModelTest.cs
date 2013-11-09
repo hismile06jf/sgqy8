@@ -44,7 +44,7 @@ public class ModelTest : MonoBehaviour {
 				r.material.SetColor("_ClothColor", cor);
 			}
 			
-			objNew.AddComponent<CombineSkinnedMeshes>();
+			//objNew.AddComponent<CombineSkinnedMeshes>();
 			
 			posX += 1f;
 			texIndex += 1;
@@ -62,10 +62,10 @@ public class ModelTest : MonoBehaviour {
 	void DelModel(object param)
 	{
 		string parh = (string)param;
-//		for(int i = 0; i < objList.Count; ++i)
-//		{
-//			GameObject.DestroyImmediate(objList[i], true);
-//		}
+		for(int i = 0; i < objList.Count; ++i)
+		{
+			GameObject.DestroyImmediate(objList[i], true);
+		}
 		ModelMgr.Instance.UnLoadModel(parh);
 	}
 	

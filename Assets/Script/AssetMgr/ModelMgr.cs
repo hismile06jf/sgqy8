@@ -27,15 +27,13 @@ public class ModelMgr : MonoBehaviour {
 		if(m_dictModel.ContainsKey(modelPath))
 		{
 			res = m_dictModel[modelPath];
-			if(null != res.AssetWWW)
+			if(null != res.Res)
 			{
 				res.AddRef();
 				
-				if(null != loadCB) res.LoadCallBack += loadCB;
-				if(null != progressCB) res.ProgressCallBack += progressCB;
-				//if(null != progressCB) progressCB(modelPath, 1f);
-				//if(null != loadCB) loadCB(modelPath, res.Res);
-				OnAssetLoadCallBack(true, res);
+				if(null != progressCB) progressCB(modelPath, 1f);
+				if(null != loadCB) loadCB(modelPath, res.Res);
+				//OnAssetLoadCallBack(true, res);
 				return;
 			}
 		}
@@ -46,10 +44,10 @@ public class ModelMgr : MonoBehaviour {
 			res.ResPath = modelPath;
 
 			m_dictModel.Add(modelPath, res);
-			m_listLoadingList.AddLast(res);
 		}
 
 		res.AddRef();
+		m_listLoadingList.AddLast(res);
 		if(null != loadCB) res.LoadCallBack += loadCB;
 		if(null != progressCB) res.ProgressCallBack += progressCB;
 	}
@@ -76,9 +74,6 @@ public class ModelMgr : MonoBehaviour {
 			{
 				res.AssetWWW.assetBundle.Unload(true);
 			}
-				
-			res.AssetWWW.Dispose();
-			res.AssetWWW = null;
 		}
 		Resources.UnloadUnusedAssets();
 	}
@@ -91,23 +86,34 @@ public class ModelMgr : MonoBehaviour {
 			return;
 		}
 		
+		if(!success)
+		{
+			if(m_dictModel.ContainsKey(res.ResPath))
+			{
+				m_dictModel.Remove(res.ResPath);
+			}
+			UnLoadRes(res);
+			return;
+		}
+		
 		if(success)
 		{
-			if(null == res.Res)
+			if(null == res.Res && null != res.AssetWWW)
 			{
 				res.Res = res.AssetWWW.assetBundle.mainAsset as GameObject;
 			}
 			/*  调用Unload(false)的话会减少asset数量，但是很少，测试只有1，而且只能调用一次，下次调用Unload(true)时，不会卸载资源  */
 			/*  assetBundle.Unload 只能调用一次，为了防止泄露，只在删除模型的时候调用  */
-			//res.AssetWWW.assetBundle.Unload(false);
+			res.AssetWWW.assetBundle.Unload(false);
 			if(null != res.LoadCallBack) 
 			{	
 				res.LoadCallBack(res.ResPath, res.Res);
 				res.LoadCallBack = null;
 				res.ProgressCallBack = null;
 			}
-			//res.AssetWWW.Dispose();
-			//res.AssetWWW = null;
+			
+			res.AssetWWW.Dispose();
+			res.AssetWWW = null;
 			//StartCoroutine(LoadFromBundle(res));
 		}
 	}
