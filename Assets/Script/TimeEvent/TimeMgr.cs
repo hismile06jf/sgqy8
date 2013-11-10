@@ -10,9 +10,7 @@ public class TimeMgr : MonoBehaviour {
 		get {
 			if(null == mInstance) 
 			{
-				GameObject obj = new GameObject("GameLogic/TimeEvent/TimeMgr");
-				DontDestroyOnLoad(obj);
-				mInstance = obj.AddComponent<TimeMgr>();
+				mInstance = LogicRoot.Instance.GetSingletonObjectScript<TimeMgr>("AssetMgr", "TimeMgr");
 			}
 			return mInstance;
 		}

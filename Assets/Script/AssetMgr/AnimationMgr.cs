@@ -9,9 +9,7 @@ public class AnimationMgr : MonoBehaviour {
 		get {
 			if(null == mInstance) 
 			{
-				GameObject obj = new GameObject("GameLogic/AssetMgr/AnimationMgr");
-				DontDestroyOnLoad(obj);
-				mInstance = obj.AddComponent<AnimationMgr>();
+				mInstance = LogicRoot.Instance.GetSingletonObjectScript<AnimationMgr>("AssetMgr", "AnimationMgr");
 			}
 			return mInstance;
 		}

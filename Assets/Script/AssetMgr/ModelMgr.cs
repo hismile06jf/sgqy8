@@ -10,9 +10,7 @@ public class ModelMgr : MonoBehaviour {
 		get {
 			if(null == mInstance) 
 			{
-				GameObject obj = new GameObject("GameLogic/AssetMgr/ModelMgr");
-				DontDestroyOnLoad(obj);
-				mInstance = obj.AddComponent<ModelMgr>();
+				mInstance = LogicRoot.Instance.GetSingletonObjectScript<ModelMgr>("AssetMgr", "ModelMgr");
 			}
 			return mInstance;
 		}
@@ -128,7 +126,6 @@ public class ModelMgr : MonoBehaviour {
 	//LoadFromBundle saync
 	IEnumerator LoadFromBundle(ResCounter<GameObject> res)
 	{
-		Object[] objes =  res.AssetWWW.assetBundle.LoadAll();
 		AssetBundleRequest request = res.AssetWWW.assetBundle.LoadAsync("so0009_1", typeof(GameObject));
 		yield return request;
 		
