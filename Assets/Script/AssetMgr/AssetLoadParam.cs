@@ -21,6 +21,7 @@ public class ResCounter<T>
 	ResLoadCallBack<T> _cb;
 	ResLoadProgressCallBack _pcb;
 	WWW _assetWWW;
+	AssetBundle _assetBundle;
 	string _resPath;
 	
 	public ResCounter()
@@ -64,6 +65,12 @@ public class ResCounter<T>
 	{
 		get { return _assetWWW; }
 		set { _assetWWW = value; }
+	}
+	
+	public AssetBundle Bundle
+	{
+		get { return _assetBundle; }
+		set { _assetBundle = value; }
 	}
 	
 	public string ResPath

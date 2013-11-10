@@ -36,6 +36,16 @@ public class ModelMgr : MonoBehaviour {
 				//OnAssetLoadCallBack(true, res);
 				return;
 			}
+			else
+			{
+				if(null != res.Bundle)
+				{
+					if(null != loadCB) res.LoadCallBack += loadCB;
+					if(null != progressCB) res.ProgressCallBack += progressCB;
+					OnAssetLoadCallBack(true, res);
+					return;
+				}
+			}
 		}
 		else
 		{
@@ -68,12 +78,9 @@ public class ModelMgr : MonoBehaviour {
 	{
 		//Do Not Destroy Here
 		if(null != res.Res) Object.DestroyImmediate(res.Res, true);
-		if(null != res.AssetWWW) 
+		if(null != res.Bundle) 
 		{
-			if(null != res.AssetWWW.assetBundle)
-			{
-				res.AssetWWW.assetBundle.Unload(true);
-			}
+			res.Bundle.Unload(true);
 		}
 		Resources.UnloadUnusedAssets();
 	}
@@ -98,13 +105,13 @@ public class ModelMgr : MonoBehaviour {
 		
 		if(success)
 		{
-			if(null == res.Res && null != res.AssetWWW)
+			if(null == res.Res && null != res.Bundle)
 			{
-				res.Res = res.AssetWWW.assetBundle.mainAsset as GameObject;
+				res.Res = res.Bundle.mainAsset as GameObject;
 			}
 			/*  调用Unload(false)的话会减少asset数量，但是很少，测试只有1，而且只能调用一次，下次调用Unload(true)时，不会卸载资源  */
 			/*  assetBundle.Unload 只能调用一次，为了防止泄露，只在删除模型的时候调用  */
-			res.AssetWWW.assetBundle.Unload(false);
+			//res.AssetWWW.assetBundle.Unload(false);
 			if(null != res.LoadCallBack) 
 			{	
 				res.LoadCallBack(res.ResPath, res.Res);
@@ -155,6 +162,11 @@ public class ModelMgr : MonoBehaviour {
 				if(!success)
 				{
 					Debug.LogError("Res Download Failed, respath = " + res.ResPath);
+				}
+				
+				if(null != res.AssetWWW)
+				{
+					res.Bundle = res.AssetWWW.assetBundle;
 				}
 				
 				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
