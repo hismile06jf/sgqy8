@@ -9,7 +9,17 @@ public class UnityTools
 	static public GameObject FindChild(GameObject objParent, string path)
 	{
 		if (objParent == null || string.IsNullOrEmpty(path)) return null;
-		Transform trans = objParent.transform.FindChild(path);
+		return FindChild(objParent.transform, path);
+	}
+	
+	
+	/// <summary>
+	/// Finds the child.
+	/// </summary>
+	static public GameObject FindChild(Transform parent, string path)
+	{
+		if (parent == null || string.IsNullOrEmpty(path)) return null;
+		Transform trans = parent.FindChild(path);
 		if(null != trans) return trans.gameObject;
 		return null;
 	}
