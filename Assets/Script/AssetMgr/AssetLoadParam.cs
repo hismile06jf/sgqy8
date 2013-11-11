@@ -12,6 +12,7 @@ public class AssetLoadParam
 
 public delegate void ResLoadProgressCallBack(string resPath, float progress);
 public delegate void ResLoadCallBack<T>(string resPath, T res);
+public delegate void ResParamLoadCallBack<T>(string resPath, T res, object userParam);
 
 
 public class ResCounter<T>

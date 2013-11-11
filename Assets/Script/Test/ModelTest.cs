@@ -21,7 +21,7 @@ public class ModelTest : MonoBehaviour {
 	
 	void OnClick()
 	{
-		ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading);
+		//ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading);
 	}
 	
 	float posX = -5f;

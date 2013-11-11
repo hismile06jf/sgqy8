@@ -5,7 +5,7 @@ public partial class Role
 {
 	GameObject objMainBody;
 	List<AttachObject> listAttachObject = new List<AttachObject>();
-		
+	
 	
 	
 	

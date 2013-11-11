@@ -2,19 +2,26 @@ using UnityEngine;
 
 public class AttachObject
 {
-	public AttachObject(string path, string hp)
+	public AttachObject(int id, string hp, bool mustUnload)
 	{
-		filePath = path;
+		modelId = id;
 		hardPoint = hp;
+		this.mustUnload = mustUnload;
 	}
 	
-	string filePath = null;
+	bool mustUnload = false;
+	int modelId = 0;
 	string hardPoint = null;
 	GameObject obj;
 	
-	public string Path
+	public bool MustUnload
 	{
-		get { return filePath; }
+		get { return mustUnload; }
+	}
+	
+	public int ModelId
+	{
+		get { return modelId; }
 	}
 	
 	public string HardPoint
@@ -31,21 +38,105 @@ public class AttachObject
 }
 
 public partial class Role
-{
-	AttachObject GetAttachObject(string filePath)
+{	
+	public void LoadMainBody(int modelId)
 	{
+		if(null == objMainBody) return;
+		
+		ModelMgr.Instance.LoadModel(modelId, OnMainBodyCallBack, null);
+	}
+	
+	public void LoadDependenceTexture(string modelTexturePath)
+	{
+	}
+	
+	public void AddAttach(int modelId, string szHP)
+	{
+		if(IsAttach(modelId, szHP)) return;
+		AttachObject att = new AttachObject(modelId, szHP, true);
+		ModelMgr.Instance.LoadModel(modelId, OnAttachCallBack, null);
+	}
+	
+	public void DelAttach(int modelId, string szHP)
+	{
+		DelAttach(GetAttachObject(modelId, szHP));
+	}
+	
+	void DelAttach(AttachObject att)
+	{
+		if(null == att) return;
+		if(null != att.Obj) 
+		{
+			att.Obj.transform.parent = null;
+			if(att.MustUnload)
+			{
+				GameObject.DestroyImmediate(att.Obj);
+				ModelMgr.Instance.UnLoadModel(att.ModelId);
+			}
+		}
+		listAttachObject.Remove(att);
+	}
+	
+	public void DelAllAttach()
+	{
+		while(listAttachObject.Count > 0)
+		{
+			DelAttach(listAttachObject[0]);
+		}
+	}
+	
+	public void AttachToHP(GameObject obj, string szHP)
+	{
+		if(null == obj || IsAttach(obj, szHP)) return;
+		
+		AttachObject att = new AttachObject(0, szHP, false);
+		att.Obj = obj;
+		AttachObjectToHP(obj, szHP);
+	}
+	
+	public void DetachFromHP(GameObject obj, string szHP)
+	{
+		if(null == obj) return;
+		DelAttach(GetAttachObject(obj, szHP));
+	}
+	
+	/*********************************************/
+	/************     Attacth     ****************/
+	/*********************************************/
+	AttachObject GetAttachObject(int modelId, string hp)
+	{
+		if(0 == modelId || string.IsNullOrEmpty(hp)) return null;
 		for(int i = 0; i < listAttachObject.Count; ++i)
 		{
-			if(listAttachObject[i].Path == filePath) return listAttachObject[i];
+			AttachObject att = listAttachObject[i];
+			if(att.ModelId == modelId && att.HardPoint == hp) return listAttachObject[i];
 		}
 		
 		return null;
 	}
 	
-	bool IsAttach(string filePath)
+	AttachObject GetAttachObject(GameObject obj, string hp)
 	{
-		AttachObject att = GetAttachObject(filePath);
+		if(null == obj || string.IsNullOrEmpty(hp)) return null;
+		for(int i = 0; i < listAttachObject.Count; ++i)
+		{
+			AttachObject att = listAttachObject[i];
+			if(att.Obj == obj && att.HardPoint == hp) return listAttachObject[i];
+		}
+		
+		return null;
+	}
+	
+	bool IsAttach(int modelId, string hp)
+	{
+		AttachObject att = GetAttachObject(modelId, hp);
 		return null != att && null != att.Obj;
+	}
+	
+	bool IsAttach(GameObject obj, string hp)
+	{
+		AttachObject att = GetAttachObject(obj, hp);
+		return null != att;
 	}
 	
 	public GameObject GetHardPointObj(string szHP)
@@ -59,62 +150,29 @@ public partial class Role
 		return null == objHP ? null : objHP.transform;
 	}
 	
-	public void LoadMainBody(string modelPath)
-	{
-		if(null == objMainBody) return;
-		
-		ModelMgr.Instance.LoadModel(modelPath, OnMainBodyCallBack, null);
-	}
-	
-	public void LoadDependenceTexture(string modelTexturePath)
-	{
-	}
-	
-	public void AddAttach(string modelPath, string szHP)
-	{
-		if(IsAttach(modelPath)) return;
-		AttachObject att = new AttachObject(modelPath, szHP);
-		ModelMgr.Instance.LoadModel(modelPath, OnAttachCallBack, null);
-	}
-	
-	public void DelAttach(string modelPath)
-	{
-		DelAttach(GetAttachObject(modelPath));
-	}
-	
-	public void DelAttach(AttachObject att)
-	{
-		if(null == att) return;
-		if(null != att.Obj) GameObject.DestroyImmediate(att.Obj);
-		ModelMgr.Instance.UnLoadModel(att.Path);
-		listAttachObject.Remove(att);
-	}
-	
-	public void AttachToHP(GameObject obj, string szHP)
-	{
-	}
-	
-	public void DetachFromHP(GameObject obj)
-	{
-	}
-	
 	/************************************************/
 	/*    callbacks    */
 	/************************************************/
-	void OnMainBodyCallBack(string path, GameObject obj)
+	void OnMainBodyCallBack(string path, Model model)
 	{
-		objMainBody = obj;
+		objMainBody = null;
 	}
 	
-	void OnAttachCallBack(string path, GameObject obj)
+	void OnAttachCallBack(string path, Model model)
 	{
-		AttachObject att = GetAttachObject(path);
-		if(null == att) ModelMgr.Instance.UnLoadModel(path);
-		
-		att.Obj = obj;
+		if(null == model) return;
+//		AttachObject att = GetAttachObject(path);
+//		if(null == att) ModelMgr.Instance.UnLoadModel(path);
+//		
+//		att.Obj = obj;
+//		AttachObjectToHP(obj, att.HardPoint);
+	}
+	
+	void AttachObjectToHP(GameObject obj, string szHP)
+	{
 		if(null != obj)
 		{
-			obj.transform.parent = GetHardPoint(att.HardPoint);
+			obj.transform.parent = GetHardPoint(szHP);
 		}
 	}
 }

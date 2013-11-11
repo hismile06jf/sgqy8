@@ -16,30 +16,50 @@ public class ModelMgr : MonoBehaviour {
 		}
 	}
 	
+	class ModelCfgLoadParam
+	{
+		public ModelCfgLoadParam(ResLoadCallBack<Model> cb, ModelCfg cfg, string filePath)
+		{
+			this.cb = cb;
+			this.cfg = cfg;
+			this.filePath = filePath;
+		}
+		public ResLoadCallBack<Model> cb;
+		public ModelCfg cfg;
+		public string filePath;
+	}
+	
 	LinkedList<ResCounter<GameObject>> m_listLoadingList = new LinkedList<ResCounter<GameObject>>();
 	Dictionary<string, ResCounter<GameObject>> m_dictModel = new Dictionary<string, ResCounter<GameObject>>();
+	List<ModelCfgLoadParam> m_listModelCfg = new List<ModelCfgLoadParam>();
 	
-	public void LoadModel(string modelPath, ResLoadCallBack<GameObject> loadCB, ResLoadProgressCallBack progressCB)
+	void LoadModel(ModelCfg cfg, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
 	{
+		if(null == cfg) return;
+		// add to list first
+		m_listModelCfg.Add(new ModelCfgLoadParam(loadCB, cfg, cfg.FilePath));
+		
 		ResCounter<GameObject> res = null;
-		if(m_dictModel.ContainsKey(modelPath))
+		if(m_dictModel.ContainsKey(cfg.FilePath))
 		{
-			res = m_dictModel[modelPath];
+			res = m_dictModel[cfg.FilePath];
 			if(null != res.Res)
 			{
 				res.AddRef();
 				
-				if(null != progressCB) progressCB(modelPath, 1f);
-				if(null != loadCB) loadCB(modelPath, res.Res);
-				//OnAssetLoadCallBack(true, res);
+				//if(null != progressCB) res.ProgressCallBack += progressCB;
+				//if(null != loadCB) res.LoadCallBack += loadCB;
+				if(null != progressCB) progressCB(res.ResPath, 1f);
+				OnAssetOK(res);
 				return;
 			}
 			else
 			{
 				if(null != res.Bundle)
 				{
-					if(null != loadCB) res.LoadCallBack += loadCB;
-					if(null != progressCB) res.ProgressCallBack += progressCB;
+					//if(null != loadCB) res.LoadCallBack += loadCB;
+					//if(null != progressCB) res.ProgressCallBack += progressCB;
+					if(null != progressCB) progressCB(res.ResPath, 1f);
 					OnAssetLoadCallBack(true, res);
 					return;
 				}
@@ -49,14 +69,14 @@ public class ModelMgr : MonoBehaviour {
 		{
 			//get path
 			res = new ResCounter<GameObject>();
-			res.ResPath = modelPath;
+			res.ResPath = cfg.FilePath;
 
-			m_dictModel.Add(modelPath, res);
+			m_dictModel.Add(cfg.FilePath, res);
 		}
 
 		res.AddRef();
 		m_listLoadingList.AddLast(res);
-		if(null != loadCB) res.LoadCallBack += loadCB;
+		//if(null != loadCB) res.LoadCallBack += loadCB;
 		if(null != progressCB) res.ProgressCallBack += progressCB;
 	}
 	
@@ -70,6 +90,31 @@ public class ModelMgr : MonoBehaviour {
 			UnLoadRes(res);
 			m_dictModel.Remove(modelPath);
 		}
+	}
+	
+	/*   只给一个文件名，就只能模拟一个数据，然后加载   */
+	public void LoadModel(string modelPath, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
+	{
+		ModelCfg cfg = new ModelCfg();
+		cfg.FilePath = modelPath;
+		LoadModel(cfg, loadCB, progressCB);
+	}
+	
+	/*   只给一个Id，就只能获取数据，然后加载   */
+	public void LoadModel(int modelId, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
+	{
+		ModelCfg cfg = null;
+		if(null == cfg) return;
+		
+		LoadModel(cfg, loadCB, progressCB);
+	}
+	
+	public void UnLoadModel(int modelId)
+	{
+		ModelCfg cfg = null;
+		if(null == cfg) return;
+		
+		UnLoadModel(cfg.FilePath);
 	}
 	
 	void UnLoadRes(ResCounter<GameObject> res)
@@ -110,17 +155,41 @@ public class ModelMgr : MonoBehaviour {
 			/*  调用Unload(false)的话会减少asset数量，但是很少，测试只有1，而且只能调用一次，下次调用Unload(true)时，不会卸载资源  */
 			/*  assetBundle.Unload 只能调用一次，为了防止泄露，只在删除模型的时候调用  */
 			//res.AssetWWW.assetBundle.Unload(false);
-			if(null != res.LoadCallBack) 
-			{	
-				res.LoadCallBack(res.ResPath, res.Res);
-				res.LoadCallBack = null;
-				res.ProgressCallBack = null;
-			}
+			
+			OnAssetOK(res);
 			
 			res.AssetWWW.Dispose();
 			res.AssetWWW = null;
 			//StartCoroutine(LoadFromBundle(res));
 		}
+	}
+	
+	void OnAssetOK(ResCounter<GameObject> res)
+	{
+		if(null == res) return;
+		for(int i = m_listModelCfg.Count - 1; i <= 0; --i)
+		{
+			ModelCfgLoadParam param = m_listModelCfg[i];
+			if(null != param && param.filePath == res.ResPath)
+			{
+				Model m = null;
+				GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
+				if(null != objModel)
+				{
+					m = objModel.AddComponent<Model>();
+					m.InitModel(param.cfg);
+				}
+				
+				if(param.cb != null)
+				{
+					param.cb(res.ResPath, m);
+				}
+			}
+			m_listModelCfg.RemoveAt(i);
+		}
+		//res.LoadCallBack(res.ResPath, res.Res);
+		res.LoadCallBack = null;
+		res.ProgressCallBack = null;
 	}
 	
 	//LoadFromBundle saync
