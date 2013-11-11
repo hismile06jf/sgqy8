@@ -43,7 +43,7 @@ public partial class Role
 	{
 		if(null == objMainBody) return;
 		
-		ModelMgr.Instance.LoadModel(modelId, OnMainBodyCallBack, null);
+		ModelMgr.Instance.LoadModel(modelId, OnMainBodyCallBack, null, null);
 	}
 	
 	public void LoadDependenceTexture(string modelTexturePath)
@@ -54,7 +54,7 @@ public partial class Role
 	{
 		if(IsAttach(modelId, szHP)) return;
 		AttachObject att = new AttachObject(modelId, szHP, true);
-		ModelMgr.Instance.LoadModel(modelId, OnAttachCallBack, null);
+		ModelMgr.Instance.LoadModel(modelId, OnAttachCallBack, null, att);
 	}
 	
 	public void DelAttach(int modelId, string szHP)
@@ -153,19 +153,22 @@ public partial class Role
 	/************************************************/
 	/*    callbacks    */
 	/************************************************/
-	void OnMainBodyCallBack(string path, Model model)
+	void OnMainBodyCallBack(string path, Model model, object userParam)
 	{
 		objMainBody = null;
 	}
 	
-	void OnAttachCallBack(string path, Model model)
+	void OnAttachCallBack(string path, Model model, object userParam)
 	{
-		if(null == model) return;
-//		AttachObject att = GetAttachObject(path);
-//		if(null == att) ModelMgr.Instance.UnLoadModel(path);
-//		
-//		att.Obj = obj;
-//		AttachObjectToHP(obj, att.HardPoint);
+		AttachObject att = (AttachObject)userParam;
+		if(null == model || null == att) 
+		{
+			ModelMgr.Instance.UnLoadModel(path);
+			return;
+		}
+		
+		att.Obj = model.gameObject;
+		AttachObjectToHP(att.Obj, att.HardPoint);
 	}
 	
 	void AttachObjectToHP(GameObject obj, string szHP)

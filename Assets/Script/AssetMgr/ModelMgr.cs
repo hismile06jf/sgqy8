@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -18,26 +19,28 @@ public class ModelMgr : MonoBehaviour {
 	
 	class ModelCfgLoadParam
 	{
-		public ModelCfgLoadParam(ResLoadCallBack<Model> cb, ModelCfg cfg, string filePath)
+		public ModelCfgLoadParam(ResParamLoadCallBack<Model> cb, ModelCfg cfg, string filePath, object param)
 		{
 			this.cb = cb;
 			this.cfg = cfg;
 			this.filePath = filePath;
+			this.userParam = param;
 		}
-		public ResLoadCallBack<Model> cb;
+		public ResParamLoadCallBack<Model> cb;
 		public ModelCfg cfg;
 		public string filePath;
+		public object userParam;
 	}
 	
 	LinkedList<ResCounter<GameObject>> m_listLoadingList = new LinkedList<ResCounter<GameObject>>();
 	Dictionary<string, ResCounter<GameObject>> m_dictModel = new Dictionary<string, ResCounter<GameObject>>();
 	List<ModelCfgLoadParam> m_listModelCfg = new List<ModelCfgLoadParam>();
 	
-	void LoadModel(ModelCfg cfg, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
+	void LoadModel(ModelCfg cfg, ResParamLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
 		if(null == cfg) return;
 		// add to list first
-		m_listModelCfg.Add(new ModelCfgLoadParam(loadCB, cfg, cfg.FilePath));
+		m_listModelCfg.Add(new ModelCfgLoadParam(loadCB, cfg, cfg.FilePath, userParam));
 		
 		ResCounter<GameObject> res = null;
 		if(m_dictModel.ContainsKey(cfg.FilePath))
@@ -93,20 +96,20 @@ public class ModelMgr : MonoBehaviour {
 	}
 	
 	/*   只给一个文件名，就只能模拟一个数据，然后加载   */
-	public void LoadModel(string modelPath, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
+	public void LoadModel(string modelPath, ResParamLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
 		ModelCfg cfg = new ModelCfg();
 		cfg.FilePath = modelPath;
-		LoadModel(cfg, loadCB, progressCB);
+		LoadModel(cfg, loadCB, progressCB, userParam);
 	}
 	
 	/*   只给一个Id，就只能获取数据，然后加载   */
-	public void LoadModel(int modelId, ResLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB)
+	public void LoadModel(int modelId, ResParamLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
 		ModelCfg cfg = null;
 		if(null == cfg) return;
 		
-		LoadModel(cfg, loadCB, progressCB);
+		LoadModel(cfg, loadCB, progressCB, userParam);
 	}
 	
 	public void UnLoadModel(int modelId)
@@ -120,7 +123,7 @@ public class ModelMgr : MonoBehaviour {
 	void UnLoadRes(ResCounter<GameObject> res)
 	{
 		//Do Not Destroy Here
-		if(null != res.Res) Object.DestroyImmediate(res.Res, true);
+		if(null != res.Res) GameObject.DestroyImmediate(res.Res, true);
 		if(null != res.Bundle) 
 		{
 			res.Bundle.Unload(true);
@@ -138,6 +141,7 @@ public class ModelMgr : MonoBehaviour {
 		
 		if(!success)
 		{
+			Debug.LogException(new Exception("Model Load Failed, filePath = " + res.ResPath));
 			if(m_dictModel.ContainsKey(res.ResPath))
 			{
 				m_dictModel.Remove(res.ResPath);
@@ -182,7 +186,7 @@ public class ModelMgr : MonoBehaviour {
 				
 				if(param.cb != null)
 				{
-					param.cb(res.ResPath, m);
+					param.cb(res.ResPath, m, param.userParam);
 				}
 			}
 			m_listModelCfg.RemoveAt(i);
