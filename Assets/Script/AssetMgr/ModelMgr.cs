@@ -178,6 +178,8 @@ public class ModelMgr : MonoBehaviour {
 				ModelCfgLoadParam param = m_listModelCfg[i];
 				if(null != param && param.filePath == res.ResPath)
 				{
+					m_listModelCfg.RemoveAt(i);
+				
 					Model m = null;
 					GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
 					if(null != objModel)
@@ -198,7 +200,6 @@ public class ModelMgr : MonoBehaviour {
 //			}
 //			
 			//
-			m_listModelCfg.RemoveAt(i);
 		}
 		//res.LoadCallBack(res.ResPath, res.Res);
 		res.LoadCallBack = null;

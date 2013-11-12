@@ -75,8 +75,8 @@ public class Model : MonoBehaviour {
 			Material mtrl = r.material;
 			if(null != mtrl)
 			{
-				mtrl.mainTexture = tex;
-				continue;
+				//mtrl.mainTexture = tex;
+				//continue;
 				/*  后面如果确认材质固定，可以不检测，直接设置贴图  */
 				string mtrlName = mtrl.name.Replace(" (Instance)", "");
 				

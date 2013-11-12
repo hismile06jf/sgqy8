@@ -109,9 +109,9 @@ public class TextureMgr : MonoBehaviour {
 		
 		if(success)
 		{
-			if(null == res.Res && null != res.AssetWWW)
+			if(null == res.Res && null != res.AssetWWW && null != res.AssetWWW.assetBundle)
 			{
-				res.Res = res.AssetWWW.texture as Texture2D;
+				res.Res = res.AssetWWW.assetBundle.mainAsset as Texture2D;
 				if(null == res.Res)
 				{
 					OnAssetFailed(res);
@@ -135,12 +135,12 @@ public class TextureMgr : MonoBehaviour {
 			TexLoadParam param = m_listTexLoadParam[i];
 			if(null != param && param.filePath == res.ResPath)
 			{				
+				m_listTexLoadParam.RemoveAt(i);
 				if(param.cb != null)
 				{
 					param.cb(res.ResPath, res.Res, param.userParam);
 				}
 			}
-			m_listTexLoadParam.RemoveAt(i);
 		}
 		//res.LoadCallBack(res.ResPath, res.Res);
 		res.LoadCallBack = null;
@@ -185,6 +185,7 @@ public class TextureMgr : MonoBehaviour {
 					Debug.LogError("Res Download Failed, respath = " + res.ResPath);
 				}
 				
+				//object[] allobjs =  res.AssetWWW.assetBundle.LoadAll();
 				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
 				OnAssetLoadCallBack(success, res);
 				m_listLoadingList.RemoveFirst();

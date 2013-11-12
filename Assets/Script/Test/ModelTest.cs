@@ -21,11 +21,11 @@ public class ModelTest : MonoBehaviour {
 	
 	void OnClick()
 	{
-		Debug.Log("=====>>  persistentDataPath" + Application.persistentDataPath);
-		Debug.Log("=====>>  temporaryCachePath" + Application.temporaryCachePath);
-		Debug.Log("=====>>  absoluteURL" + Application.absoluteURL);
-		Debug.Log("=====>>  streamingAssetsPath" + Application.streamingAssetsPath);
-		Debug.Log("=====>>  dataPath" + Application.dataPath);
+//		Debug.Log("=====>>  persistentDataPath" + Application.persistentDataPath);
+//		Debug.Log("=====>>  temporaryCachePath" + Application.temporaryCachePath);
+//		Debug.Log("=====>>  absoluteURL" + Application.absoluteURL);
+//		Debug.Log("=====>>  streamingAssetsPath" + Application.streamingAssetsPath);
+//		Debug.Log("=====>>  dataPath" + Application.dataPath);
 		
 		ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading, null);
 	}
