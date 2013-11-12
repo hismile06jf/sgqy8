@@ -171,24 +171,33 @@ public class ModelMgr : MonoBehaviour {
 	void OnAssetOK(ResCounter<GameObject> res)
 	{
 		if(null == res) return;
-		for(int i = m_listModelCfg.Count - 1; i <= 0; --i)
+		for(int i = m_listModelCfg.Count - 1; i >= 0; --i)
 		{
-			ModelCfgLoadParam param = m_listModelCfg[i];
-			if(null != param && param.filePath == res.ResPath)
-			{
-				Model m = null;
-				GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
-				if(null != objModel)
+//			try
+//			{
+				ModelCfgLoadParam param = m_listModelCfg[i];
+				if(null != param && param.filePath == res.ResPath)
 				{
-					m = objModel.AddComponent<Model>();
-					m.InitModel(param.cfg);
+					Model m = null;
+					GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
+					if(null != objModel)
+					{
+						m = objModel.AddComponent<Model>();
+						m.SetModelCfg(param.cfg);
+					}
+					
+					if(param.cb != null)
+					{
+						param.cb(res.ResPath, m, param.userParam);
+					}
 				}
-				
-				if(param.cb != null)
-				{
-					param.cb(res.ResPath, m, param.userParam);
-				}
-			}
+//			}
+//			catch(Exception e)
+//			{
+//				Debug.LogError("Model OnAssetOK, exception = " + e.Message);
+//			}
+//			
+			//
 			m_listModelCfg.RemoveAt(i);
 		}
 		//res.LoadCallBack(res.ResPath, res.Res);

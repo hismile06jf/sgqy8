@@ -130,7 +130,7 @@ public class TextureMgr : MonoBehaviour {
 	void OnAssetOK(ResCounter<Texture2D> res)
 	{
 		if(null == res) return;
-		for(int i = m_listTexLoadParam.Count - 1; i <= 0; --i)
+		for(int i = m_listTexLoadParam.Count - 1; i >= 0; --i)
 		{
 			TexLoadParam param = m_listTexLoadParam[i];
 			if(null != param && param.filePath == res.ResPath)

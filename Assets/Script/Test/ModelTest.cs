@@ -21,28 +21,34 @@ public class ModelTest : MonoBehaviour {
 	
 	void OnClick()
 	{
-		//ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading);
+		Debug.Log("=====>>  persistentDataPath" + Application.persistentDataPath);
+		Debug.Log("=====>>  temporaryCachePath" + Application.temporaryCachePath);
+		Debug.Log("=====>>  absoluteURL" + Application.absoluteURL);
+		Debug.Log("=====>>  streamingAssetsPath" + Application.streamingAssetsPath);
+		Debug.Log("=====>>  dataPath" + Application.dataPath);
+		
+		ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading, null);
 	}
 	
 	float posX = -5f;
 	int texIndex = 0;
 	List<GameObject> objList = new List<GameObject>();
-	void OnAnimLoad(string modelPath, GameObject model)
+	void OnAnimLoad(string modelPath, Model m, object param)
 	{
-		if(null != model) 
+		if(null != m) 
 		{
-			GameObject objNew = GameObject.Instantiate(model) as GameObject;
+			GameObject objNew = m.gameObject;
 			objNew.transform.localPosition = new Vector3(posX, 0, 0);
 			objNew.transform.parent = null;
 			
-			Color cor = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
-			SkinnedMeshRenderer[] rs = objNew.GetComponentsInChildren<SkinnedMeshRenderer>();
-			foreach(SkinnedMeshRenderer r in rs)
-			{
-				r.material.SetTexture("_MainTex", mainTex[texIndex]);
-				r.material.SetTexture("_ClothTex", clothTex[texIndex]);
-				r.material.SetColor("_ClothColor", cor);
-			}
+//			Color cor = new Color32((byte)Random.Range(0, 255), (byte)Random.Range(0, 255), (byte)Random.Range(0, 255), 255);
+//			SkinnedMeshRenderer[] rs = objNew.GetComponentsInChildren<SkinnedMeshRenderer>();
+//			foreach(SkinnedMeshRenderer r in rs)
+//			{
+//				r.material.SetTexture("_MainTex", mainTex[texIndex]);
+//				r.material.SetTexture("_ClothTex", clothTex[texIndex]);
+//				r.material.SetColor("_ClothColor", cor);
+//			}
 			
 			//objNew.AddComponent<CombineSkinnedMeshes>();
 			
@@ -56,7 +62,7 @@ public class ModelTest : MonoBehaviour {
 			objList.Add(objNew);
 		}
 		
-		TimeMgr.Instance.Exec(DelModel, modelPath, 5000);
+		//TimeMgr.Instance.Exec(DelModel, modelPath, 5000);
 	}
 	
 	void DelModel(object param)
