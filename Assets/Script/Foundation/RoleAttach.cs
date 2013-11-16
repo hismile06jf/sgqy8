@@ -192,6 +192,7 @@ public partial class Role
 				AttachObject att = listReadyAttachObject[i];
 				AttachObjectToHP(att.Obj, att.HardPoint);
 			}
+			listReadyAttachObject.Clear();
 		}
 	}
 	

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public partial class Role
 {
 	string currAnimation;
+	List<AnimationClip> listReadyAnimClip = new List<AnimationClip>();
 	
 	public void PlayAnim(string animPath)
 	{
@@ -25,6 +26,10 @@ public partial class Role
 					anim.Play(clip.name);
 				}
 			}
+		}
+		else
+		{
+			listReadyAnimClip.Add(clip);
 		}
 	}
 }
