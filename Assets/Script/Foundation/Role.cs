@@ -3,11 +3,18 @@ using System.Collections.Generic;
 
 public partial class Role
 {
-	GameObject objMainBody;
+	Model mainBody;
 	List<AttachObject> listAttachObject = new List<AttachObject>();
 	
+	public Model MainBody
+	{
+		get { return mainBody; } 
+	}
 	
-	
+	public GameObject MainBodyObj
+	{
+		get { return null == mainBody ? null : mainBody.gameObject; }
+	}
 	
 	public void PlayAnim(string animPath)
 	{

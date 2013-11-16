@@ -25,13 +25,13 @@ public class ModelMtrl
 	
 	
 	//
-	public ModelMtrl(string name)
-	{
-		Name = name;
-		TexList = new List<MtrlTex>();
-		TexList.Add(new MtrlTex("_MainTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009.unity3d"));
-		TexList.Add(new MtrlTex("_ClothTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009_cloth.unity3d"));
-	}
+//	public ModelMtrl(string name)
+//	{
+//		Name = name;
+//		TexList = new List<MtrlTex>();
+//		TexList.Add(new MtrlTex("_MainTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009.unity3d"));
+//		TexList.Add(new MtrlTex("_ClothTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009_cloth.unity3d"));
+//	}
 }
 
 public class ModelCfg
@@ -45,10 +45,10 @@ public class ModelCfg
 		get { return null == MtrlList ? 0 : MtrlList.Count; }
 	}
 	
-	public ModelCfg()
-	{
-		MtrlList = new List<ModelMtrl>();
-		MtrlList.Add(new ModelMtrl("so0009"));
-	}
+//	public ModelCfg()
+//	{
+//		MtrlList = new List<ModelMtrl>();
+//		MtrlList.Add(new ModelMtrl("so0009"));
+//	}
 }
 

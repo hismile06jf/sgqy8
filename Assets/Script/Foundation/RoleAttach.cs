@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AttachObject
 {
@@ -39,9 +40,23 @@ public class AttachObject
 
 public partial class Role
 {	
+	int modelId;
+	List<AttachObject> listReadyAttachObject = new List<AttachObject>();
+	
+	public Role(int roleModelId)
+	{
+		modelId = roleModelId;
+		LoadMainBody(roleModelId);
+	}
+	
+	bool IsMainBodyReady
+	{
+		get { return null != MainBody; }
+	}
+	
 	public void LoadMainBody(int modelId)
 	{
-		if(null == objMainBody) return;
+		if(IsMainBodyReady) return;
 		
 		ModelMgr.Instance.LoadModel(modelId, OnMainBodyCallBack, null, null);
 	}
@@ -141,7 +156,7 @@ public partial class Role
 	
 	public GameObject GetHardPointObj(string szHP)
 	{
-		return UnityTools.FindChild(objMainBody, szHP);
+		return UnityTools.FindChild(MainBodyObj, szHP);
 	}
 	
 	public Transform GetHardPoint(string szHP)
@@ -155,7 +170,21 @@ public partial class Role
 	/************************************************/
 	void OnMainBodyCallBack(string path, Model model, object userParam)
 	{
-		objMainBody = null;
+		if(null == model)
+		{
+			Debug.LogError("Role Load Failed, Model[" + modelId.ToString() + "] Not Found.");
+		}
+		
+		mainBody = model;
+		
+		if(IsMainBodyReady)
+		{
+			for(int i = 0; i < listReadyAttachObject.Count; ++i)
+			{
+				AttachObject att = listReadyAttachObject[i];
+				AttachObjectToHP(att.Obj, att.HardPoint);
+			}
+		}
 	}
 	
 	void OnAttachCallBack(string path, Model model, object userParam)
@@ -164,6 +193,12 @@ public partial class Role
 		if(null == model || null == att) 
 		{
 			ModelMgr.Instance.UnLoadModel(path);
+			return;
+		}
+		
+		if(!IsMainBodyReady)
+		{
+			listReadyAttachObject.Add(att);
 			return;
 		}
 		

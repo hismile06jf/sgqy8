@@ -9,6 +9,8 @@ public class ModelTest : MonoBehaviour {
 	public Texture[] mainTex = new Texture[0];
 	public Texture[] clothTex = new Texture[0];
 	
+	Role killer = null;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -28,6 +30,7 @@ public class ModelTest : MonoBehaviour {
 //		Debug.Log("=====>>  dataPath" + Application.dataPath);
 		
 		ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading, null);
+		//killer = new Role(9);
 	}
 	
 	float posX = -5f;
