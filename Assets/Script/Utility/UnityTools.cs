@@ -33,5 +33,32 @@ public class UnityTools
 		GameObject child = FindChild(parent, childName);
 		return null == child ? null : (T)child.GetComponent<T>();
 	}
+	
+	/// <summary>
+	/// Finds the child.
+	/// </summary>
+	static public GameObject FindChildRecursion(GameObject objParent, string name)
+	{
+		if (objParent == null || string.IsNullOrEmpty(name)) return null;
+		Transform trans = FindChildRecursion(objParent.transform, name);
+		return null == trans ? null : trans.gameObject;
+	}
+	
+	/// <summary>
+	/// Finds the child.
+	/// </summary>
+	static public Transform FindChildRecursion(Transform parent, string name)
+	{
+		if (parent == null || string.IsNullOrEmpty(name)) return null;
+		if(parent.name == name) return parent;
+		
+		for(int i = 0; i < parent.childCount; ++i)
+		{			
+			Transform tran = FindChildRecursion(parent.GetChild(i), name);
+			if(null != tran) return tran;
+		}
+		
+		return null;
+	}
 }
 

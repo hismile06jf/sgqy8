@@ -16,10 +16,6 @@ public partial class Role
 		get { return null == mainBody ? null : mainBody.gameObject; }
 	}
 	
-	public void PlayAnim(string animPath)
-	{
-	}
-	
 	public void SetPostion()
 	{
 	}

@@ -156,7 +156,7 @@ public partial class Role
 	
 	public GameObject GetHardPointObj(string szHP)
 	{
-		return UnityTools.FindChild(MainBodyObj, szHP);
+		return UnityTools.FindChildRecursion(MainBodyObj, szHP);
 	}
 	
 	public Transform GetHardPoint(string szHP)
@@ -176,9 +176,17 @@ public partial class Role
 		}
 		
 		mainBody = model;
+//		if(null != model)
+//		{
+//			model.InitModel();
+//		}
 		
 		if(IsMainBodyReady)
 		{
+			MainBodyObj.transform.localPosition = Vector3.zero;
+			MainBodyObj.transform.localRotation = Quaternion.identity;
+			MainBodyObj.transform.localScale	= Vector3.one;
+			
 			for(int i = 0; i < listReadyAttachObject.Count; ++i)
 			{
 				AttachObject att = listReadyAttachObject[i];
@@ -210,7 +218,28 @@ public partial class Role
 	{
 		if(null != obj)
 		{
-			obj.transform.parent = GetHardPoint(szHP);
+			Vector3 vPos = Vector3.zero;
+			Quaternion qRot = Quaternion.identity;
+			Vector3 vScl = Vector3.one;
+			
+			Transform trans = GetHardPoint(szHP);
+			if(null != trans)
+			{
+				obj.transform.parent = trans;
+			}
+			
+			Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP);
+			if(null != hpInit)
+			{
+				vPos = hpInit.localPosition;
+				vPos.y = - vPos.y;
+				qRot = hpInit.localRotation;
+				vScl = hpInit.localScale;
+			}
+			
+			obj.transform.localPosition = vPos;
+			obj.transform.localRotation = qRot;
+			obj.transform.localScale = vScl;
 		}
 	}
 }

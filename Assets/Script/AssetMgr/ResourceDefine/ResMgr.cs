@@ -24,7 +24,7 @@ public class ResMgr
 			{
 				model88 = new ModelCfg();
 				model88.Id = 88;
-				model88.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/we0088.unity3d";
+				model88.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/we0088.unity3d";
 			}
 			
 			return model88;
@@ -36,7 +36,7 @@ public class ResMgr
 			{
 				model09 = new ModelCfg();				
 				model09.Id = 9;
-				model09.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009.unity3d";
+				model09.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/so0009.unity3d";
 				
 				model09.MtrlList = new List<ModelMtrl>();
 				ModelMtrl mtrl = new ModelMtrl();
@@ -44,6 +44,8 @@ public class ResMgr
 				mtrl.TexList = new List<MtrlTex>();
 				mtrl.TexList.Add(new MtrlTex("_MainTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009.unity3d"));
 				mtrl.TexList.Add(new MtrlTex("_ClothTex", "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Textures/so0009_cloth.unity3d"));
+				
+				model09.MtrlList.Add(mtrl);
 			}
 			
 			return model09;

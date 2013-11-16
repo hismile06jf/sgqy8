@@ -106,7 +106,7 @@ public class ModelMgr : MonoBehaviour {
 	/*   只给一个Id，就只能获取数据，然后加载   */
 	public void LoadModel(int modelId, ResParamLoadCallBack<Model> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
-		ModelCfg cfg = null;
+		ModelCfg cfg = ResMgr.Instance.GetModelCfg(modelId);
 		if(null == cfg) return;
 		
 		LoadModel(cfg, loadCB, progressCB, userParam);
@@ -114,7 +114,7 @@ public class ModelMgr : MonoBehaviour {
 	
 	public void UnLoadModel(int modelId)
 	{
-		ModelCfg cfg = null;
+		ModelCfg cfg = ResMgr.Instance.GetModelCfg(modelId);
 		if(null == cfg) return;
 		
 		UnLoadModel(cfg.FilePath);
@@ -181,11 +181,14 @@ public class ModelMgr : MonoBehaviour {
 					m_listModelCfg.RemoveAt(i);
 				
 					Model m = null;
-					GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
-					if(null != objModel)
+					if(null != res.Res)
 					{
-						m = objModel.AddComponent<Model>();
-						m.SetModelCfg(param.cfg);
+						GameObject objModel = GameObject.Instantiate(res.Res) as GameObject;
+						if(null != objModel)
+						{
+							m = objModel.AddComponent<Model>();
+							m.SetModelCfg(param.cfg);
+						}
 					}
 					
 					if(param.cb != null)
