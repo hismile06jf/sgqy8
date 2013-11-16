@@ -19,6 +19,8 @@ public class AnimationMgr : MonoBehaviour {
 	Dictionary<string, ResCounter<AnimationClip>> m_dictAnimationClip = new Dictionary<string, ResCounter<AnimationClip>>();
 	public void LoadAnimation(string animPath, ResLoadCallBack<AnimationClip> loadCB, ResLoadProgressCallBack progressCB)
 	{
+		if(string.IsNullOrEmpty(animPath)) return;
+		
 		ResCounter<AnimationClip> res = null;
 		if(m_dictAnimationClip.ContainsKey(animPath))
 		{
@@ -61,11 +63,6 @@ public class AnimationMgr : MonoBehaviour {
 	void UnLoadRes(ResCounter<AnimationClip> res)
 	{
 		if(null != res.Res) Object.DestroyImmediate(res.Res, true);
-		if(null != res.AssetWWW) 
-		{
-			res.AssetWWW.Dispose();
-			res.AssetWWW = null;
-		}
 		Resources.UnloadUnusedAssets();
 	}
 	
@@ -77,12 +74,17 @@ public class AnimationMgr : MonoBehaviour {
 			return;
 		}
 		
-		if(success)
+		if(success && null != res.AssetWWW && null != res.AssetWWW.assetBundle)
 		{
 			GameObject gameObj = res.AssetWWW.assetBundle.mainAsset as GameObject;
 			Animation animation = gameObj.animation;
 			if(null != animation) res.Res = animation.clip;
 			res.AssetWWW.assetBundle.Unload(false);
+		}
+		else
+		{
+			m_dictAnimationClip.Remove(res.ResPath);
+			UnLoadRes(res);
 		}
 		
 		if(null != res.AssetWWW)
@@ -116,7 +118,7 @@ public class AnimationMgr : MonoBehaviour {
 			
 			if(res.AssetWWW.isDone)
 			{
-				bool success = null == res.AssetWWW.error;
+				bool success = (null == res.AssetWWW.error && null != res.AssetWWW.assetBundle);
 				if(!success)
 				{
 					Debug.LogError("Res Download Failed, respath = " + res.ResPath);

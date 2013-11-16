@@ -41,6 +41,8 @@ public class AttachObject
 public partial class Role
 {	
 	int modelId;
+	
+	List<AttachObject> listAttachObject = new List<AttachObject>();
 	List<AttachObject> listReadyAttachObject = new List<AttachObject>();
 	
 	public Role(int roleModelId)
@@ -187,13 +189,20 @@ public partial class Role
 			MainBodyObj.transform.localRotation = Quaternion.identity;
 			MainBodyObj.transform.localScale	= Vector3.one;
 			
-			for(int i = 0; i < listReadyAttachObject.Count; ++i)
-			{
-				AttachObject att = listReadyAttachObject[i];
-				AttachObjectToHP(att.Obj, att.HardPoint);
-			}
-			listReadyAttachObject.Clear();
+			//process ready
+			ProcessReadyAttach();
+			ProcessReadyAnim();
 		}
+	}
+	
+	void ProcessReadyAttach()
+	{
+		for(int i = 0; i < listReadyAttachObject.Count; ++i)
+		{
+			AttachObject att = listReadyAttachObject[i];
+			AttachObjectToHP(att.Obj, att.HardPoint);
+		}
+		listReadyAttachObject.Clear();
 	}
 	
 	void OnAttachCallBack(string path, Model model, object userParam)

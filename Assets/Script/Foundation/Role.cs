@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public partial class Role
 {
 	Model mainBody;
-	List<AttachObject> listAttachObject = new List<AttachObject>();
 	
 	public Model MainBody
 	{
