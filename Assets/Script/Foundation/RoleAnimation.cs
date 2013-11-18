@@ -1,9 +1,23 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+public class AnimQueueInfo
+{
+	public AnimQueueInfo(string name, float time)
+	{
+		animName = name;
+		animTime = time;
+	}
+	
+	public string animName;
+	public float animTime;
+}
+
 public partial class Role
 {
 	string playAnimName;
+	List<AnimQueueInfo> playAnimList = new List<AnimQueueInfo>();
+	
 	List<string> listAnimation = new List<string>();
 	List<AnimationClip> listReadyAnimClip = new List<AnimationClip>();
 	
@@ -14,11 +28,22 @@ public partial class Role
 	
 	public void PlayAnim(string animName)
 	{
+		if(string.IsNullOrEmpty(animName)) return;
+		
 		Animation anim = RoleAnimation;
 		if(null != anim)
 		{
-			if(null != anim.GetClip(animName) && !anim.IsPlaying(animName))
+			AnimationClip clip = anim.GetClip(animName);
+			if(null != clip && !anim.IsPlaying(animName))
 			{
+//				if(playAnimList.Contains(animName))
+//				{
+//					AnimationEvent animEvent = new AnimationEvent();
+//					animEvent.functionName = "OnAnimEvent";
+//					animEvent.messageOptions = SendMessageOptions.DontRequireReceiver;
+//					clip.AddEvent(animEvent);
+//				}
+				
 				anim.Play(animName);
 				return;
 			}
@@ -28,6 +53,19 @@ public partial class Role
 		playAnimName = animName;
 		string animPath = GetAnimPath(animName);
 		LoadAnim(animPath);
+	}
+	
+	public void PlayAnimQueue(List<AnimQueueInfo> animList)
+	{
+		if(null == animList || 0 == animList.Count) return;
+		
+		//laod first
+		for(int i = 0; i < animList.Count; ++i)
+		{
+			LoadAnim(animList[i].animName);
+		}
+		
+		//
 	}
 	
 	public void LoadAnim(string animPath)
