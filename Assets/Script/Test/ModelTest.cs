@@ -10,6 +10,7 @@ public class ModelTest : MonoBehaviour {
 	public Texture[] clothTex = new Texture[0];
 	
 	Role killer = null;
+	List<Role> roleList = new List<Role>();
 	
 	// Use this for initialization
 	void Start () {
@@ -25,8 +26,11 @@ public class ModelTest : MonoBehaviour {
 	{		
 		//ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading, null);
 		killer = new Role(9);
-		killer.AddAttach(88, "HP_right_hand");
-		killer.LoadAnim("file://D:/WorkSpace/sgqy8thunk/AssetBundle/w_a01.unity3d");
-		killer.PlayAnim("w_a01");
+		killer.AddAttach(88, Role.GetHardPointName(EHardPoint.LeftHand));
+		killer.LoadAnim("file://D:/WorkSpace/sgqy8thunk/AssetBundle/r_a01.unity3d");
+		killer.PlayAnim("r_a01");
+		killer.MountRide(111);
+		
+		roleList.Add(killer);
 	}
 }

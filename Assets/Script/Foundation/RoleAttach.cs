@@ -156,20 +156,17 @@ public partial class Role
 		return null != att;
 	}
 	
-	public GameObject GetHardPointObj(string szHP)
-	{
-		return UnityTools.FindChildRecursion(MainBodyObj, szHP);
-	}
-	
-	public Transform GetHardPoint(string szHP)
-	{
-		GameObject objHP = GetHardPointObj(szHP);
-		return null == objHP ? null : objHP.transform;
-	}
-	
 	/************************************************/
 	/*    callbacks    */
 	/************************************************/
+	virtual public void OnMainBodyReady()
+	{
+		if(0 != rideModelId)
+		{
+			MountRide(rideModelId);
+		}
+	}
+	
 	void OnMainBodyCallBack(string path, Model model, object userParam)
 	{
 		if(null == model)
@@ -192,6 +189,8 @@ public partial class Role
 			//process ready
 			ProcessReadyAttach();
 			ProcessReadyAnim();
+			
+			OnMainBodyReady();
 		}
 	}
 	
@@ -232,7 +231,7 @@ public partial class Role
 			Quaternion qRot = Quaternion.identity;
 			Vector3 vScl = Vector3.one;
 			
-			Transform trans = GetHardPoint(szHP);
+			Transform trans = GetHardPoint(MainBodyObj, szHP);
 			if(null != trans)
 			{
 				obj.transform.parent = trans;
@@ -251,6 +250,70 @@ public partial class Role
 			obj.transform.localRotation = qRot;
 			obj.transform.localScale = vScl;
 		}
+	}
+	
+//	void AttachObjectToHP(GameObject obj, string szHP, bool useTargetHPInfo)
+//	{
+//		if(null != obj)
+//		{
+//			Vector3 vPos = Vector3.zero;
+//			Quaternion qRot = Quaternion.identity;
+//			Vector3 vScl = Vector3.one;
+//			
+//			Transform trans = GetHardPoint(MainBodyObj, szHP);
+//			if(null != trans)
+//			{
+//				obj.transform.parent = trans;
+//			}
+//			
+//			Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP);
+//			if(null != hpInit)
+//			{
+//				vPos = hpInit.localPosition;
+//				vPos.y = - vPos.y;
+//				qRot = hpInit.localRotation;
+//				vScl = hpInit.localScale;
+//			}
+//			
+//			obj.transform.localPosition = vPos;
+//			obj.transform.localRotation = qRot;
+//			obj.transform.localScale = vScl;
+//		}
+//	}
+	
+	
+	static string[] szHPArray = null;
+	static public string GetHardPointName(EHardPoint eHP)
+	{
+		if(null == szHPArray)
+		{
+			szHPArray =new string[(int)EHardPoint.Max];
+			szHPArray[(int)EHardPoint.Horse] = "HP_horse";
+			szHPArray[(int)EHardPoint.Horse01] = "HP_horse01";
+			szHPArray[(int)EHardPoint.Head] = "HP_head";
+			szHPArray[(int)EHardPoint.Back] = "HP_back";
+			szHPArray[(int)EHardPoint.BackLeft] = "HP_back_left";
+			szHPArray[(int)EHardPoint.LeftHand] = "HP_left_hand";
+			szHPArray[(int)EHardPoint.RightHand] = "HP_right_hand";
+			szHPArray[(int)EHardPoint.RightHandA] = "HP_right_hand_a";
+			szHPArray[(int)EHardPoint.Waist] = "HP_waist";
+			szHPArray[(int)EHardPoint.Effect] = "HP_effect";
+			szHPArray[(int)EHardPoint.BLUp] = "HP_BLUp";
+			szHPArray[(int)EHardPoint.BLDown] = "HP_BLDown";
+		}
+		if(eHP == EHardPoint.Max) return szHPArray[(int)EHardPoint.LeftHand];
+		return szHPArray[(int)eHP];
+	}
+	
+	static public GameObject GetHardPointObj(GameObject obj, string szHP)
+	{
+		return UnityTools.FindChildRecursion(obj, szHP);
+	}
+	
+	static public Transform GetHardPoint(GameObject obj, string szHP)
+	{
+		GameObject objHP = GetHardPointObj(obj, szHP);
+		return null == objHP ? null : objHP.transform;
 	}
 }
 

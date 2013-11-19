@@ -5,14 +5,39 @@ public partial class Role
 {
 	Model mainBody;
 	
+	int rideModelId;
+	Ride ride;
+	
 	public Model MainBody
 	{
-		get { return mainBody; } 
+		get { return mainBody; }
 	}
 	
 	public GameObject MainBodyObj
 	{
 		get { return null == mainBody ? null : mainBody.gameObject; }
+	}
+	
+	public bool isRide
+	{
+		get { return null != ride; }
+	}
+	
+	public void MountRide(int modelId)
+	{
+		ride = null;
+		
+		rideModelId = modelId;
+		if(IsMainBodyReady)
+		{
+			ride = new Ride(modelId, MainBody);
+			rideModelId = 0;
+		}
+	}
+	
+	public void UnMountRide()
+	{
+		ride = null;
 	}
 	
 	public void SetPostion()

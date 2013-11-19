@@ -16,6 +16,7 @@ public class ResMgr
 	
 	static ModelCfg model88;
 	static ModelCfg model09;
+	static ModelCfg model111;
 	public ModelCfg GetModelCfg(int modelId)
 	{
 		if(modelId == 88)
@@ -49,6 +50,18 @@ public class ResMgr
 			}
 			
 			return model09;
+		}
+		
+		if(modelId == 111)
+		{
+			if(null == model111)
+			{
+				model111 = new ModelCfg();
+				model111.Id = 111;
+				model111.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/h1_ho0111.unity3d";
+			}
+			
+			return model111;
 		}
 		
 		return null;
