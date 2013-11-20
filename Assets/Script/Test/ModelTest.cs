@@ -33,4 +33,13 @@ public class ModelTest : MonoBehaviour {
 		
 		roleList.Add(killer);
 	}
+	
+	void OnDestroy()
+	{
+		for(int i = 0; i < roleList.Count; ++i)
+		{
+			roleList[i] = null;
+		}
+		roleList.Clear();
+	}
 }

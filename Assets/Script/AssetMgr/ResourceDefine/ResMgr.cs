@@ -66,5 +66,28 @@ public class ResMgr
 		
 		return null;
 	}
+	
+	SkillCfg skill001 = null;
+	public SkillCfg GetSkillCfg(int skillId)
+	{
+		if(null == skill001)
+		{
+			skill001 = new SkillCfg();
+			skill001.SkillId = 1;
+			skill001.SkillType = (byte)ESkillType.Target;
+			skill001.AffNum = 1;
+			skill001.AffRange = 0;
+			skill001.AffDirection = (byte)ESkillDir.Fore;
+			skill001.EffectFile = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Effect/efftest.unity3d";
+			skill001.EffectSpeed = 1f;
+			skill001.AnimTime = 1f;
+			skill001.AnimList = new List<EAnimType>();
+			skill001.AnimList.Add(EAnimType.Attack_Arrow_Begin);
+			skill001.AnimList.Add(EAnimType.Attack_Arrow_Hold);
+			skill001.AnimList.Add(EAnimType.Attack_Arrow_Fire);
+		}
+		
+		return skill001;
+	}
 }
 

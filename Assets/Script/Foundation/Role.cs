@@ -8,6 +8,11 @@ public partial class Role
 	int rideModelId;
 	Ride ride;
 	
+//	~Role()
+//	{
+//		UnMountRide();
+//	}
+	
 	public Model MainBody
 	{
 		get { return mainBody; }
@@ -31,12 +36,17 @@ public partial class Role
 		if(IsMainBodyReady)
 		{
 			ride = new Ride(modelId, MainBody);
+			ride.PlayAnim(EAnimType.Walk_Fore);
 			rideModelId = 0;
 		}
 	}
 	
 	public void UnMountRide()
 	{
+		if(null != ride)
+		{
+			ride.UnMount();
+		}
 		ride = null;
 	}
 	

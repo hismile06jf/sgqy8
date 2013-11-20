@@ -8,6 +8,7 @@ public enum EAssetType
 	UI,
 	Sound,
 	Stage,
+	Effect,
 	
 	Max
 }

@@ -26,6 +26,12 @@ public partial class Role
 		get { return null == MainBodyObj ? null : MainBodyObj.GetComponent<Animation>(); }
 	}
 	
+	public void PlayAnim(EAnimType anim)
+	{
+		string animName = GetAnimName(anim);
+		PlayAnim(animName);
+	}
+	
 	public void PlayAnim(string animName)
 	{
 		if(string.IsNullOrEmpty(animName)) return;
@@ -74,11 +80,6 @@ public partial class Role
 		AnimationMgr.Instance.LoadAnimation(animPath, OnAnimationLoadCallBack, null);
 	}
 	
-	virtual public string GetAnimPath(string animName)
-	{
-		return animName;
-	}
-	
 	void OnAnimationLoadCallBack(string resPath, AnimationClip clip)
 	{
 		if(null == clip) return;
@@ -117,6 +118,53 @@ public partial class Role
 		{
 			PlayAnim(playAnimName);
 		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//generally human role
+	virtual public string GetAnimName(EAnimType type)
+	{
+		switch(type)
+		{
+		case EAnimType.Idle: return "w_w01";
+			
+		case EAnimType.Rest_Down: return "h_r01_1";
+		case EAnimType.Rest_Idle: return "h_r01_2";
+		case EAnimType.Rest_Idle_a: return "h_r01_3";
+		case EAnimType.Rest_Up: return "h_r02";
+			
+		case EAnimType.Walk_Fore: return "h_m01";
+		case EAnimType.Walk_Back: return "h_m02";
+		case EAnimType.Walk_TurnLeft: return "h_m05";
+		case EAnimType.Walk_TurnRight: return "h_m06";
+		case EAnimType.Walk_Die: return "h_f02_1";
+		case EAnimType.Walk_DieHold: return "h_f02_2";
+			
+		case EAnimType.Run_Fore: return "h_m03";
+		case EAnimType.Run_Back: return "h_m02";
+		case EAnimType.Run_RurnLeft: return "h_m05";
+		case EAnimType.Run_RurnRight: return "h_m06";
+		case EAnimType.Run_Die: return "h_f02_1";
+		case EAnimType.Run_DieHold: return "h_f02_2";
+		}
+		
+		return "w_w01";
+	}
+	
+	virtual public string GetAnimPath(string animName)
+	{
+		return RoleCfg.GetRoleAnimPath(ERoleType.UserL, animName);
 	}
 }
 
