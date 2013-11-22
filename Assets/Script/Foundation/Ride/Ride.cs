@@ -25,7 +25,7 @@ public class Ride : Role
 	{
 		if(null == m) return;
 		master = m;
-		AttachToHP(m.gameObject, Role.GetHardPointName(EHardPoint.Horse));
+		AttachToHP(m.gameObject, Role.GetHardPointName(EHardPoint.Horse), false);
 	}
 	
 	public void UnMount(Model m)

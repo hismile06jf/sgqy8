@@ -65,10 +65,17 @@ public partial class Role
 				{
 					state.wrapMode = WrapMode.Loop;
 				}
+				state.wrapMode = WrapMode.Loop;
 				anim.Play(animName);
 				playAnimName = null;
 				return;
 			}
+		}
+		
+		// return if loading
+		if(animName == playAnimName)
+		{
+			return;
 		}
 		
 		//try load
@@ -146,12 +153,12 @@ public partial class Role
 		playAnimListLoopTime = playAnimListTotalTime - exludeLoopTime;
 		if(playAnimListLoopTime <= 0f)
 		{
-			playAnimListSpeed = playAnimListTotalTime / exludeLoopTime;
+			playAnimListSpeed = exludeLoopTime / playAnimListTotalTime;
 		}
 		
 		state = RoleAnimation[playAnimList[0].animName];
 		state.speed = playAnimListSpeed;
-		TimeMgr.Instance.Exec(AnimQueuePlayFinished, 0, (int)(state.clip.length * playAnimListSpeed * 1000f));
+		TimeMgr.Instance.Exec(AnimQueuePlayFinished, 0, (int)(state.clip.length / playAnimListSpeed * 1000f));
 		RoleAnimation.Play(state.name);
 		isAnimListPlaying = true;
 	}
@@ -192,7 +199,7 @@ public partial class Role
 			}
 		}
 		
-		time *= playAnimListSpeed;
+		time /= playAnimListSpeed;
 		
 		state.speed = playAnimListSpeed;
 		RoleAnimation.Play(clip.name);
@@ -207,7 +214,7 @@ public partial class Role
 		if(IsMainBodyReady)
 		{
 			Animation anim = RoleAnimation;
-			if(null != anim) 
+			if(null != anim && null == anim.GetClip(clip.name)) 
 			{
 				anim.AddClip(clip, clip.name);
 			}
@@ -267,7 +274,7 @@ public partial class Role
 	{
 		switch(type)
 		{
-		case EAnimType.Idle: return "w_w01";
+		case EAnimType.Idle: return isRide ? "r_w02" : "w_w02";
 			
 		case EAnimType.Rest_Down: return "h_r01_1";
 		case EAnimType.Rest_Idle: return "h_r01_2";

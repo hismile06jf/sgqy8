@@ -58,7 +58,7 @@ public class ResMgr
 			{
 				model111 = new ModelCfg();
 				model111.Id = 111;
-				model111.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/h1_ho0111.unity3d";
+				model111.FilePath = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/h1_ho0001.unity3d";
 			}
 			
 			return model111;

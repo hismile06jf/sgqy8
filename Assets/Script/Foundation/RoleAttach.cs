@@ -102,13 +102,13 @@ public partial class Role
 		}
 	}
 	
-	public void AttachToHP(GameObject obj, string szHP)
+	public void AttachToHP(GameObject obj, string szHP, bool initByHP)
 	{
 		if(null == obj || IsAttach(obj, szHP)) return;
 		
 		AttachObject att = new AttachObject(0, szHP, false);
 		att.Obj = obj;
-		AttachObjectToHP(obj, szHP);
+		AttachObjectToHP(obj, szHP, initByHP);
 	}
 	
 	public void DetachFromHP(GameObject obj, string szHP)
@@ -199,7 +199,7 @@ public partial class Role
 		for(int i = 0; i < listReadyAttachObject.Count; ++i)
 		{
 			AttachObject att = listReadyAttachObject[i];
-			AttachObjectToHP(att.Obj, att.HardPoint);
+			AttachObjectToHP(att.Obj, att.HardPoint, true);
 		}
 		listReadyAttachObject.Clear();
 	}
@@ -220,10 +220,10 @@ public partial class Role
 		}
 		
 		att.Obj = model.gameObject;
-		AttachObjectToHP(att.Obj, att.HardPoint);
+		AttachObjectToHP(att.Obj, att.HardPoint, true);
 	}
 	
-	void AttachObjectToHP(GameObject obj, string szHP)
+	void AttachObjectToHP(GameObject obj, string szHP, bool initByHP)
 	{
 		if(null != obj)
 		{
@@ -237,13 +237,16 @@ public partial class Role
 				obj.transform.parent = trans;
 			}
 			
-			Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP);
-			if(null != hpInit)
+			if(initByHP)
 			{
-				vPos = hpInit.localPosition;
-				vPos.y = - vPos.y;
-				qRot = hpInit.localRotation;
-				vScl = hpInit.localScale;
+				Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP);
+				if(null != hpInit)
+				{
+					vPos = hpInit.localPosition;
+					vPos.y = - vPos.y;
+					qRot = hpInit.localRotation;
+					vScl = hpInit.localScale;
+				}
 			}
 			
 			obj.transform.localPosition = vPos;

@@ -29,13 +29,13 @@ public class ModelTest : MonoBehaviour {
 			//ModelMgr.Instance.LoadModel(modelPath[0], OnAnimLoad, OnAninLoading, null);
 			killer = new Role(9);
 			killer.AddAttach(88, Role.GetHardPointName(EHardPoint.LeftHand));
-			killer.LoadAnim("file://D:/WorkSpace/sgqy8thunk/AssetBundle/r_a01.unity3d");
-			killer.PlayAnim("r_a01");
-			//killer.MountRide(111);
+			//killer.LoadAnim("file://D:/WorkSpace/sgqy8thunk/AssetBundle/r_a02.unity3d");
+			killer.PlayAnim("r_a02");
+			killer.MountRide(111);
 		}
 		else
 		{
-			float time = Random.Range(0.5f, 5f);
+			float time = Random.Range(1f, 5f);
 			killer.UseSkill(1, time);
 			Debug.Log("time = " + time.ToString());
 		}
