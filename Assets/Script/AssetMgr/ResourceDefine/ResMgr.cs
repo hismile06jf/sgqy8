@@ -74,10 +74,10 @@ public class ResMgr
 		{
 			skill001 = new SkillCfg();
 			skill001.SkillId = 1;
-			skill001.SkillType = (byte)ESkillType.Target;
 			skill001.AffNum = 1;
 			skill001.AffRange = 0;
 			skill001.AffDirection = (byte)ESkillDir.Fore;
+			skill001.EffectType = (byte)ESkillEffectType.Target;
 			skill001.EffectFile = "file://D:/WorkSpace/sgqy8thunk/AssetBundle/Effect/efftest.unity3d";
 			skill001.EffectSpeed = 1f;
 			skill001.AnimTime = 1f;

@@ -185,7 +185,7 @@ public partial class Role
 			MainBodyObj.transform.localPosition = Vector3.zero;
 			MainBodyObj.transform.localRotation = Quaternion.identity;
 			MainBodyObj.transform.localScale	= Vector3.one;
-			
+				
 			//process ready
 			ProcessReadyAttach();
 			ProcessReadyAnim();

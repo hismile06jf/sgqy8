@@ -4,7 +4,7 @@ using UnityEngine;
 public class Model : MonoBehaviour {
 	
 	ModelCfg modelCfg;
-	
+		
 	public int ModelId
 	{
 		get { return null == modelCfg ? 0 : modelCfg.Id; }

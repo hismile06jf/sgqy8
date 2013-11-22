@@ -35,6 +35,7 @@ public enum EAnimType
 	Swim_TurnLeft,
 	Swim_TurnRight,
 	Swim_Die,
+	Swim_Die_a,
 	
 	Escape_a,
 	Escape_b,

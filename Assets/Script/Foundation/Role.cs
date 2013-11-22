@@ -8,6 +8,8 @@ public partial class Role
 	int rideModelId;
 	Ride ride;
 	
+	ERoleState currState;
+	
 //	~Role()
 //	{
 //		UnMountRide();
@@ -36,7 +38,7 @@ public partial class Role
 		if(IsMainBodyReady)
 		{
 			ride = new Ride(modelId, MainBody);
-			ride.PlayAnim(EAnimType.Walk_Fore);
+			//ride.PlayAnim(EAnimType.Walk_Fore);
 			rideModelId = 0;
 		}
 	}
@@ -70,4 +72,13 @@ public partial class Role
 	public void MovePath(float speed)
 	{
 	}
+	
+//	void SwitchState(ERoleState state)
+//	{
+//		switch(currState)
+//		{
+//		case ERoleState.Attack:
+//			break;
+//		}
+//	}
 }

@@ -14,3 +14,11 @@ public enum ERoleType
 	UserX,
 	Ride,
 }
+
+public enum ERoleState
+{
+	Idle,
+	Move,
+	Attack,
+	Trade,
+}

@@ -1,6 +1,6 @@
 using System;
 
-public enum ESkillType
+public enum ESkillEffectType
 {
 	TrackTarget,
 	SelectPlace,
