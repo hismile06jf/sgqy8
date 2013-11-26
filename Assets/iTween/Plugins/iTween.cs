@@ -44,7 +44,7 @@ using UnityEngine;
 /// <para>Author: Bob Berkebile (http://pixelplacement.com)</para>
 /// <para>Support: http://itween.pixelplacement.com</para>
 /// </summary>
-public class iTween : MonoBehaviour{
+public partial class iTween : MonoBehaviour{
 		
 	#region Variables
 	

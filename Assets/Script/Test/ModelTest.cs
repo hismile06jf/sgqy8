@@ -37,7 +37,7 @@ public class ModelTest : MonoBehaviour {
 		{
 			float time = Random.Range(1f, 5f);
 			killer.UseSkill(1, time);
-			Debug.Log("time = " + time.ToString());
+			//Debug.Log("time = " + time.ToString());
 		}
 		//roleList.Add(killer);
 	}
