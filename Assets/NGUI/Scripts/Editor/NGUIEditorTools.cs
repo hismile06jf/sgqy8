@@ -401,7 +401,7 @@ public class NGUIEditorTools
 			}
 
 			// No UI present -- create a new one
-			if (go == null) go = UICreateNewUIWizard.CreateNewUI();
+			if (go == null) go = UICreateNewUIWizard.CreateNewUI(UICreateNewUIWizard.CameraType.Simple2D);
 		}
 		return go;
 	}
@@ -1051,6 +1051,7 @@ public class NGUIEditorTools
 							spriteName = newName;
 							mEditedName = null;
 
+							NGUISettings.atlas = atlas;
 							NGUISettings.selectedSprite = spriteName;
 						}
 					}
@@ -1065,6 +1066,7 @@ public class NGUIEditorTools
 
 				if (GUILayout.Button("Edit", GUILayout.Width(40f)))
 				{
+					NGUISettings.atlas = atlas;
 					NGUISettings.selectedSprite = spriteName;
 					Select(atlas.gameObject);
 				}
@@ -1335,6 +1337,12 @@ public class NGUIEditorTools
 	}
 
 	/// <summary>
+	/// Select the topmost widget underneath the specified screen coordinate.
+	/// </summary>
+
+	static public bool SelectWidget (Vector2 pos) { return SelectWidget(null, pos, true); }
+
+	/// <summary>
 	/// Select the next widget in line.
 	/// </summary>
 
@@ -1342,27 +1350,44 @@ public class NGUIEditorTools
 	{
 		GameObject go = null;
 		BetterList<UIWidget> widgets = SceneViewRaycast(pos);
+		if (widgets == null || widgets.size == 0) return false;
+		bool found = false;
 
 		if (!inFront)
 		{
-			if (widgets.size > 0)
+			if (start != null)
 			{
 				for (int i = 0; i < widgets.size; ++i)
 				{
 					UIWidget w = widgets[i];
-					if (w.cachedGameObject == start) break;
+
+					if (w.cachedGameObject == start)
+					{
+						found = true;
+						break;
+					}
 					go = w.cachedGameObject;
 				}
 			}
+			if (!found) go = widgets[0].cachedGameObject;
 		}
 		else
 		{
-			for (int i = widgets.size; i > 0; )
+			if (start != null)
 			{
-				UIWidget w = widgets[--i];
-				if (w.cachedGameObject == start) break;
-				go = w.cachedGameObject;
+				for (int i = widgets.size; i > 0; )
+				{
+					UIWidget w = widgets[--i];
+
+					if (w.cachedGameObject == start)
+					{
+						found = true;
+						break;
+					}
+					go = w.cachedGameObject;
+				}
 			}
+			if (!found) go = widgets[widgets.size - 1].cachedGameObject;
 		}
 
 		if (go != null && go != start)
@@ -1371,28 +1396,6 @@ public class NGUIEditorTools
 			return true;
 		}
 		return false;
-	}
-
-	/// <summary>
-	/// Select the next widget or container.
-	/// </summary>
-
-	static public bool SelectWidgetOrContainer (GameObject go, Vector2 pos, bool inFront)
-	{
-		if (!SelectWidget(go, pos, inFront))
-		{
-			if (inFront)
-			{
-				UIWidgetContainer wc = NGUITools.FindInParents<UIWidgetContainer>(go);
-
-				if (wc != null && wc.gameObject != go)
-				{
-					Selection.activeGameObject = wc.gameObject;
-					return true;
-				}
-			}
-		}
-		return true;
 	}
 
 	/// <summary>
@@ -1437,6 +1440,22 @@ public class NGUIEditorTools
 	{
 #if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3
 		UnityEditor.Tools.hidden = hide && (UnityEditor.Tools.current == UnityEditor.Tool.Move);
+#endif
+	}
+
+	/// <summary>
+	/// Get the size of the game view. This is a hacky method using reflection due to the function being internal.
+	/// </summary>
+
+	static public Vector2 GetMainGameViewSize ()
+	{
+#if UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3
+		System.Type T = System.Type.GetType("UnityEditor.GameView,UnityEditor");
+		System.Reflection.MethodInfo GetSizeOfMainGameView = T.GetMethod("GetSizeOfMainGameView", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+		System.Object Res = GetSizeOfMainGameView.Invoke(null, null);
+		return (Vector2)Res;
+#else
+		return Handles.GetMainGameViewSize();
 #endif
 	}
 
@@ -1492,5 +1511,126 @@ public class NGUIEditorTools
 				Selection.activeGameObject = null;
 			}
 		}
+	}
+
+	class MenuEntry
+	{
+		public string name;
+		public GameObject go;
+		public MenuEntry (string name, GameObject go) { this.name = name; this.go = go; }
+	}
+
+	/// <summary>
+	/// Show a sprite selection context menu listing all sprites under the specified screen position.
+	/// </summary>
+
+	static public void ShowSpriteSelectionMenu (Vector2 screenPos)
+	{
+		BetterList<UIWidget> widgets = NGUIEditorTools.SceneViewRaycast(screenPos);
+		BetterList<UIWidgetContainer> containers = new BetterList<UIWidgetContainer>();
+		BetterList<MenuEntry> entries = new BetterList<MenuEntry>();
+		BetterList<UIPanel> panels = new BetterList<UIPanel>();
+
+		bool divider = false;
+		UIWidget topWidget = null;
+		UIPanel topPanel = null;
+
+		// Process widgets and their containers in the raycast order
+		for (int i = 0; i < widgets.size; ++i)
+		{
+			UIWidget w = widgets[i];
+			if (topWidget == null) topWidget = w;
+
+			UIPanel panel = w.panel;
+			if (topPanel == null) topPanel = panel;
+
+			if (panel != null && !panels.Contains(panel))
+			{
+				panels.Add(panel);
+
+				if (!divider)
+				{
+					entries.Add(null);
+					divider = true;
+				}
+				entries.Add(new MenuEntry(panel.name + " (panel)", panel.gameObject));
+			}
+
+			UIWidgetContainer wc = NGUITools.FindInParents<UIWidgetContainer>(w.cachedGameObject);
+
+			// If we get a new container, we should add it to the list
+			if (wc != null && !containers.Contains(wc))
+			{
+				containers.Add(wc);
+
+				// Only proceed if there is no widget on the container
+				if (wc.gameObject != w.cachedGameObject)
+				{
+					if (!divider)
+					{
+						entries.Add(null);
+						divider = true;
+					}
+					entries.Add(new MenuEntry(wc.name + " (container)", wc.gameObject));
+				}
+			}
+
+			string name = (i + 1 == widgets.size) ? (w.name + " (top-most)") : w.name;
+			entries.Add(new MenuEntry(name, w.gameObject));
+			divider = false;
+		}
+
+		// Common items used by NGUI
+		NGUIContextMenu.AddCommonItems(Selection.activeGameObject);
+
+		// Add widgets to the menu in the reverse order so that they are shown with the top-most widget first (on top)
+		for (int i = entries.size; i > 0; )
+		{
+			MenuEntry ent = entries[--i];
+
+			if (ent != null)
+			{
+				NGUIContextMenu.AddItem("Select/" + ent.name, Selection.activeGameObject == ent.go,
+					delegate(object go) { Selection.activeGameObject = (GameObject)go; }, ent.go);
+			}
+			else if (!divider)
+			{
+				NGUIContextMenu.AddSeparator("Select/");
+			}
+		}
+		NGUIContextMenu.AddHelp(Selection.activeGameObject, true);
+		NGUIContextMenu.Show();
+	}
+	/// <summary>
+	/// Load the asset at the specified path.
+	/// </summary>
+
+	static public Object LoadAsset (string path)
+	{
+		if (string.IsNullOrEmpty(path)) return null;
+		return AssetDatabase.LoadMainAssetAtPath(path);
+	}
+
+	/// <summary>
+	/// Convenience function to load an asset of specified type, given the full path to it.
+	/// </summary>
+
+	static public T LoadAsset<T> (string path) where T: Object
+	{
+		Object obj = LoadAsset(path);
+		if (obj == null) return null;
+
+		T val = obj as T;
+		if (val != null) return val;
+
+		if (typeof(T).IsSubclassOf(typeof(Component)))
+		{
+			if (obj.GetType() == typeof(GameObject))
+			{
+				GameObject go = obj as GameObject;
+				return go.GetComponent(typeof(T)) as T;
+			}
+		}
+		return null;
 	}
 }

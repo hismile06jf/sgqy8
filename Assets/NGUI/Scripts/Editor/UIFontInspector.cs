@@ -215,7 +215,7 @@ public class UIFontInspector : Editor
 				{
 					NGUIEditorTools.RegisterUndo("Import Font Data", mFont);
 					BMFontReader.Load(mFont.bmFont, NGUITools.GetHierarchy(mFont.gameObject), data.bytes);
-					mFont.MarkAsDirty();
+					mFont.MarkAsChanged();
 					resetWidthHeight = true;
 					Debug.Log("Imported " + mFont.bmFont.glyphCount + " characters");
 				}
@@ -223,58 +223,54 @@ public class UIFontInspector : Editor
 
 			if (mFont.bmFont.isValid)
 			{
-				Color green = new Color(0.4f, 1f, 0f, 1f);
 				Texture2D tex = mFont.texture;
 
-				if (tex != null)
+				if (tex != null && mFont.atlas == null)
 				{
-					if (mFont.atlas == null)
+					// Pixels are easier to work with than UVs
+					Rect pixels = NGUIMath.ConvertToPixels(mFont.uvRect, tex.width, tex.height, false);
+
+					// Automatically set the width and height of the rectangle to be the original font texture's dimensions
+					if (resetWidthHeight)
 					{
-						// Pixels are easier to work with than UVs
-						Rect pixels = NGUIMath.ConvertToPixels(mFont.uvRect, tex.width, tex.height, false);
-
-						// Automatically set the width and height of the rectangle to be the original font texture's dimensions
-						if (resetWidthHeight)
-						{
-							pixels.width = mFont.texWidth;
-							pixels.height = mFont.texHeight;
-						}
-
-						// Font sprite rectangle
-						GUI.backgroundColor = green;
-						pixels = EditorGUILayout.RectField("Pixel Rect", pixels);
-						GUI.backgroundColor = Color.white;
-
-						// Create a button that can make the coordinates pixel-perfect on click
-						GUILayout.BeginHorizontal();
-						{
-							Rect corrected = NGUIMath.MakePixelPerfect(pixels);
-
-							if (corrected == pixels)
-							{
-								GUI.color = Color.grey;
-								GUILayout.Button("Make Pixel-Perfect");
-								GUI.color = Color.white;
-							}
-							else if (GUILayout.Button("Make Pixel-Perfect"))
-							{
-								pixels = corrected;
-								GUI.changed = true;
-							}
-						}
-						GUILayout.EndHorizontal();
-
-						// Convert the pixel coordinates back to UV coordinates
-						Rect uvRect = NGUIMath.ConvertToTexCoords(pixels, tex.width, tex.height);
-
-						if (mFont.uvRect != uvRect)
-						{
-							NGUIEditorTools.RegisterUndo("Font Pixel Rect", mFont);
-							mFont.uvRect = uvRect;
-						}
-						//NGUIEditorTools.DrawSeparator();
-						EditorGUILayout.Space();
+						pixels.width = mFont.texWidth;
+						pixels.height = mFont.texHeight;
 					}
+
+					// Font sprite rectangle
+					GUI.backgroundColor = new Color(0.4f, 1f, 0f, 1f);
+					pixels = EditorGUILayout.RectField("Pixel Rect", pixels);
+					GUI.backgroundColor = Color.white;
+
+					// Create a button that can make the coordinates pixel-perfect on click
+					GUILayout.BeginHorizontal();
+					{
+						Rect corrected = NGUIMath.MakePixelPerfect(pixels);
+
+						if (corrected == pixels)
+						{
+							GUI.color = Color.grey;
+							GUILayout.Button("Make Pixel-Perfect");
+							GUI.color = Color.white;
+						}
+						else if (GUILayout.Button("Make Pixel-Perfect"))
+						{
+							pixels = corrected;
+							GUI.changed = true;
+						}
+					}
+					GUILayout.EndHorizontal();
+
+					// Convert the pixel coordinates back to UV coordinates
+					Rect uvRect = NGUIMath.ConvertToTexCoords(pixels, tex.width, tex.height);
+
+					if (mFont.uvRect != uvRect)
+					{
+						NGUIEditorTools.RegisterUndo("Font Pixel Rect", mFont);
+						mFont.uvRect = uvRect;
+					}
+					//NGUIEditorTools.DrawSeparator();
+					EditorGUILayout.Space();
 				}
 			}
 		}
@@ -282,27 +278,6 @@ public class UIFontInspector : Editor
 		// The font must be valid at this point for the rest of the options to show up
 		if (mFont.isDynamic || mFont.bmFont.isValid)
 		{
-			// Font spacing
-			GUILayout.BeginHorizontal();
-			{
-				NGUIEditorTools.SetLabelWidth(0f);
-				GUILayout.Label("Spacing", GUILayout.Width(60f));
-				GUILayout.Label("X", GUILayout.Width(12f));
-				int x = EditorGUILayout.IntField(mFont.horizontalSpacing);
-				GUILayout.Label("Y", GUILayout.Width(12f));
-				int y = EditorGUILayout.IntField(mFont.verticalSpacing);
-				GUILayout.Space(18f);
-				NGUIEditorTools.SetLabelWidth(80f);
-
-				if (mFont.horizontalSpacing != x || mFont.verticalSpacing != y)
-				{
-					NGUIEditorTools.RegisterUndo("Font Spacing", mFont);
-					mFont.horizontalSpacing = x;
-					mFont.verticalSpacing = y;
-				}
-			}
-			GUILayout.EndHorizontal();
-
 			if (mFont.atlas == null)
 			{
 				mView = View.Font;
@@ -355,6 +330,7 @@ public class UIFontInspector : Editor
 						{
 							if (mFont.atlas != null)
 							{
+								NGUISettings.atlas = mFont.atlas;
 								NGUISettings.selectedSprite = sym.spriteName;
 								NGUIEditorTools.Select(mFont.atlas.gameObject);
 							}
@@ -368,7 +344,7 @@ public class UIFontInspector : Editor
 							mSymbolSequence = sym.sequence;
 							mSymbolSprite = sym.spriteName;
 							symbols.Remove(sym);
-							mFont.MarkAsDirty();
+							mFont.MarkAsChanged();
 						}
 						GUI.backgroundColor = Color.white;
 						GUILayout.EndHorizontal();
@@ -392,7 +368,7 @@ public class UIFontInspector : Editor
 					{
 						NGUIEditorTools.RegisterUndo("Add symbol", mFont);
 						mFont.AddSymbol(mSymbolSequence, mSymbolSprite);
-						mFont.MarkAsDirty();
+						mFont.MarkAsChanged();
 						mSymbolSequence = "";
 						mSymbolSprite = "";
 					}
@@ -432,7 +408,7 @@ public class UIFontInspector : Editor
 			NGUIEditorTools.RegisterUndo("Change symbol", mFont);
 			mSelectedSymbol.spriteName = spriteName;
 			Repaint();
-			mFont.MarkAsDirty();
+			mFont.MarkAsChanged();
 		}
 	}
 
@@ -456,7 +432,7 @@ public class UIFontInspector : Editor
 			}
 			else
 			{
-				NGUIEditorTools.DrawTexture(tex, rect, mFont.uvRect, Color.white, m);
+				NGUIEditorTools.DrawTexture(tex, rect, new Rect(0f, 0f, 1f, 1f), Color.white, m);
 			}
 		}
 	}
