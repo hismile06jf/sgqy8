@@ -1,0 +1,329 @@
+<SummonActionMapping.xml>
+	<Idx1>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_a01a
+					<Down>	w_a01b	</Down>
+				</Idx1>
+				<Idx2>	w_a02a
+					<Down>	w_a02b	</Down>
+				</Idx2>
+			</Action>
+		</ActTypeID1>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_a01a
+					<Down>	w_a01b	</Down>
+				</Idx1>
+				<Idx2>	w_a02a
+					<Down>	w_a02b	</Down>
+				</Idx2>
+				<Idx3>	w_a03a
+					<Down>	w_a03b	</Down>
+				</Idx3>
+			</Action>
+		</ActTypeID2>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_a01a
+					<Down>	w_a01b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID3>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_a02a
+					<Down>	w_a02b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx1>
+	<Idx89>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_fol_1a
+					<Down>	w_fol_1b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID1>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_fol_1a
+					<Down>	w_fol_1b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID2>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_fol_1a
+					<Down>	w_fol_1b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID3>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_fol_1a
+					<Down>	w_fol_1b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx89>
+	<Idx101>
+		<init>	</init>
+		<ActTypeID1>
+			<Ratio>	1.500000	</Ratio>
+			<Action>
+				<Idx1>	w_a02a
+					<Down>	w_a02b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_a01a
+					<Down>	w_a01b	</Down>
+				</Idx1>
+			</Action2>
+			<Action3>
+				<Idx1>	w_a03a
+					<Down>	w_a03b	</Down>
+				</Idx1>
+			</Action3>
+		</ActTypeID1>
+	</Idx101>
+	<Idx102>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_s02_1a
+					<Down>	w_a02_1b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_s02_2a
+					<Down>	w_a02_2b	</Down>
+				</Idx1>
+			</Action2>
+			<Action3>
+				<Idx1>	w_s02_3a
+					<Down>	w_a02_3b	</Down>
+				</Idx1>
+			</Action3>
+		</ActTypeID1>
+	</Idx102>
+	<Idx103>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_s01_3a
+					<Down>	w_s01_3b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID1>
+	</Idx103>
+	<Idx104>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID1>
+	</Idx104>
+	<Idx105>
+		<init>	</init>
+		<ActTypeID1>
+			<Action>
+				<Idx1>	w_s02_2a
+					<Down>	w_s02_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID1>
+	</Idx105>
+	<Idx201>
+		<init>	</init>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_s01_1a
+					<Down>	w_s01_1b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action2>
+			<Action3>
+				<Idx1>	w_s01_3a
+					<Down>	w_s01_3b	</Down>
+				</Idx1>
+			</Action3>
+		</ActTypeID2>
+	</Idx201>
+	<Idx202>
+		<init>	</init>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_s01_3a
+					<Down>	w_s01_3b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID2>
+	</Idx202>
+	<Idx203>
+		<init>	</init>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_s02_3a
+					<Down>	w_s02_3b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID2>
+	</Idx203>
+	<Idx204>
+		<init>	</init>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID2>
+	</Idx204>
+	<Idx205>
+		<init>	</init>
+		<ActTypeID2>
+			<Action>
+				<Idx1>	w_s02_2a
+					<Down>	w_s02_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID2>
+	</Idx205>
+	<Idx301>
+		<init>	</init>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_s02_1a
+					<Down>	w_s02_1b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_a03a
+					<Down>	w_a03b	</Down>
+				</Idx1>
+			</Action2>
+		</ActTypeID3>
+	</Idx301>
+	<Idx302>
+		<init>	</init>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_s01_1a
+					<Down>	w_s01_1b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action2>
+			<Action3>
+				<Idx1>	w_s01_3a
+					<Down>	w_s01_3b	</Down>
+				</Idx1>
+			</Action3>
+		</ActTypeID3>
+	</Idx302>
+	<Idx303>
+		<init>	</init>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_s02_1a
+					<Down>	w_s02_1b	</Down>
+				</Idx1>
+			</Action>
+			<Action2>
+				<Idx1>	w_s02_2a
+					<Down>	w_s02_2b	</Down>
+				</Idx1>
+			</Action2>
+			<Action3>
+				<Idx1>	w_s02_3a
+					<Down>	w_s02_3b	</Down>
+				</Idx1>
+			</Action3>
+		</ActTypeID3>
+	</Idx303>
+	<Idx304>
+		<init>	</init>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID3>
+	</Idx304>
+	<Idx305>
+		<init>	</init>
+		<ActTypeID3>
+			<Action>
+				<Idx1>	w_s02_2a
+					<Down>	w_s02_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID3>
+	</Idx305>
+	<Idx401>
+		<init>	</init>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_a01a
+					<Down>	w_a01b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx401>
+	<Idx402>
+		<init>	</init>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_a03a
+					<Down>	w_a03b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx402>
+	<Idx403>
+		<init>	</init>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_s01_3a
+					<Down>	w_s01_3b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx403>
+	<Idx404>
+		<init>	</init>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_s01_2a
+					<Down>	w_s01_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx404>
+	<Idx405>
+		<init>	</init>
+		<ActTypeID4>
+			<Action>
+				<Idx1>	w_s02_2a
+					<Down>	w_s02_2b	</Down>
+				</Idx1>
+			</Action>
+		</ActTypeID4>
+	</Idx405>
+</SummonActionMapping.xml>

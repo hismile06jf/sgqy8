@@ -1,0 +1,912 @@
+<FrameEventSetting.xml>
+	<BladeLight>
+		<Idx6>	3
+			<l_base>	w_a02a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a02a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	w_a02a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	w_a02a
+				<Frame>	9	</Frame>
+			</x_base>
+		</Idx6>
+		<Idx7>	4
+			<l_base>	w_a02a
+				<Frame>	17	</Frame>
+			</l_base>
+			<m_base>	w_a02a
+				<Frame>	17	</Frame>
+			</m_base>
+			<s_base>	w_a02a
+				<Frame>	16	</Frame>
+			</s_base>
+			<x_base>	w_a02a
+				<Frame>	16	</Frame>
+			</x_base>
+		</Idx7>
+		<Idx10>	3
+			<l_base>	w_a03a
+				<Frame>	10	</Frame>
+			</l_base>
+			<m_base>	w_a03a
+				<Frame>	12	</Frame>
+			</m_base>
+			<s_base>	w_a03a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	w_a03a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx10>
+		<Idx11>	4
+			<l_base>	w_a03a
+				<Frame>	19	</Frame>
+			</l_base>
+			<m_base>	w_a03a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	w_a03a
+				<Frame>	17	</Frame>
+			</s_base>
+			<x_base>	w_a03a
+				<Frame>	17	</Frame>
+			</x_base>
+		</Idx11>
+		<Idx14>	3
+			<l_base>	w_a04a
+				<Frame>	10	</Frame>
+			</l_base>
+			<m_base>	w_a04a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	w_a04a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	w_a04a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx14>
+		<Idx15>	4
+			<l_base>	w_a04a
+				<Frame>	19	</Frame>
+			</l_base>
+			<m_base>	w_a04a
+				<Frame>	17	</Frame>
+			</m_base>
+			<s_base>	w_a04a
+				<Frame>	17	</Frame>
+			</s_base>
+			<x_base>	w_a04a
+				<Frame>	18	</Frame>
+			</x_base>
+		</Idx15>
+		<Idx18>	3
+			<l_base>	w_a05a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a05a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	w_a05a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	w_a05a
+				<Frame>	11	</Frame>
+			</x_base>
+		</Idx18>
+		<Idx19>	4
+			<l_base>	w_a05a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	w_a05a
+				<Frame>	15	</Frame>
+			</m_base>
+			<s_base>	w_a05a
+				<Frame>	14	</Frame>
+			</s_base>
+			<x_base>	w_a05a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx19>
+		<Idx22>	5
+			<l_base>	w_a06a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	w_a06a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a06a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	w_a06a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx22>
+		<Idx23>	6
+			<l_base>	w_a06a
+				<Frame>	18	</Frame>
+			</l_base>
+			<m_base>	w_a06a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	w_a06a
+				<Frame>	16	</Frame>
+			</s_base>
+			<x_base>	w_a06a
+				<Frame>	17	</Frame>
+			</x_base>
+		</Idx23>
+		<Idx26>	5
+			<l_base>	w_a07a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a07a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a07a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	w_a07a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx26>
+		<Idx27>	6
+			<l_base>	w_a07a
+				<Frame>	18	</Frame>
+			</l_base>
+			<m_base>	w_a07a
+				<Frame>	17	</Frame>
+			</m_base>
+			<s_base>	w_a07a
+				<Frame>	16	</Frame>
+			</s_base>
+			<x_base>	w_a07a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx27>
+		<Idx30>	5
+			<l_base>	w_a08a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a08a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a08a
+				<Frame>	12	</Frame>
+			</s_base>
+			<x_base>	w_a08a
+				<Frame>	11	</Frame>
+			</x_base>
+		</Idx30>
+		<Idx31>	6
+			<l_base>	w_a08a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	w_a08a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	w_a08a
+				<Frame>	14	</Frame>
+			</s_base>
+			<x_base>	w_a08a
+				<Frame>	14	</Frame>
+			</x_base>
+		</Idx31>
+		<Idx42>	3
+			<l_base>	w_a11a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a11a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a11a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	w_a11a
+				<Frame>	11	</Frame>
+			</x_base>
+		</Idx42>
+		<Idx43>	4
+			<l_base>	w_a11a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	w_a11a
+				<Frame>	14	</Frame>
+			</m_base>
+			<s_base>	w_a11a
+				<Frame>	13	</Frame>
+			</s_base>
+			<x_base>	w_a11a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx43>
+		<Idx46>	3
+			<l_base>	w_a12a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	w_a12a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a12a
+				<Frame>	8	</Frame>
+			</s_base>
+			<x_base>	w_a12a
+				<Frame>	8	</Frame>
+			</x_base>
+		</Idx46>
+		<Idx47>	4
+			<l_base>	w_a12a
+				<Frame>	19	</Frame>
+			</l_base>
+			<m_base>	w_a12a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	w_a12a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	w_a12a
+				<Frame>	17	</Frame>
+			</x_base>
+		</Idx47>
+		<Idx50>	3
+			<l_base>	w_a13a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	w_a13a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a13a
+				<Frame>	8	</Frame>
+			</s_base>
+			<x_base>	w_a13a
+				<Frame>	8	</Frame>
+			</x_base>
+		</Idx50>
+		<Idx51>	4
+			<l_base>	w_a13a
+				<Frame>	17	</Frame>
+			</l_base>
+			<m_base>	w_a13a
+				<Frame>	17	</Frame>
+			</m_base>
+			<s_base>	w_a13a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	w_a13a
+				<Frame>	16	</Frame>
+			</x_base>
+		</Idx51>
+		<Idx66>	1
+			<l_base>	w_a17a
+				<Frame>	7	</Frame>
+			</l_base>
+			<m_base>	w_a17a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a17a
+				<Frame>	9	</Frame>
+			</s_base>
+			<x_base>	w_a17a
+				<Frame>	8	</Frame>
+			</x_base>
+		</Idx66>
+		<Idx67>	2
+			<l_base>	w_a17a
+				<Frame>	16	</Frame>
+			</l_base>
+			<m_base>	w_a17a
+				<Frame>	17	</Frame>
+			</m_base>
+			<s_base>	w_a17a
+				<Frame>	17	</Frame>
+			</s_base>
+			<x_base>	w_a17a
+				<Frame>	18	</Frame>
+			</x_base>
+		</Idx67>
+		<Idx74>	3
+			<l_base>	w_a19a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	w_a19a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	w_a19a
+				<Frame>	5	</Frame>
+			</s_base>
+			<x_base>	w_a19a
+				<Frame>	5	</Frame>
+			</x_base>
+		</Idx74>
+		<Idx75>	4
+			<l_base>	w_a19a
+				<Frame>	33	</Frame>
+			</l_base>
+			<m_base>	w_a19a
+				<Frame>	31	</Frame>
+			</m_base>
+			<s_base>	w_a19a
+				<Frame>	31	</Frame>
+			</s_base>
+			<x_base>	w_a19a
+				<Frame>	31	</Frame>
+			</x_base>
+		</Idx75>
+		<Idx78>	3
+			<l_base>	w_a20a
+				<Frame>	12	</Frame>
+			</l_base>
+			<m_base>	w_a20a
+				<Frame>	13	</Frame>
+			</m_base>
+			<s_base>	w_a20a
+				<Frame>	14	</Frame>
+			</s_base>
+			<x_base>	w_a20a
+				<Frame>	13	</Frame>
+			</x_base>
+		</Idx78>
+		<Idx79>	4
+			<l_base>	w_a20a
+				<Frame>	22	</Frame>
+			</l_base>
+			<m_base>	w_a20a
+				<Frame>	23	</Frame>
+			</m_base>
+			<s_base>	w_a20a
+				<Frame>	22	</Frame>
+			</s_base>
+			<x_base>	w_a20a
+				<Frame>	21	</Frame>
+			</x_base>
+		</Idx79>
+		<Idx82>	3
+			<l_base>	w_a21a
+				<Frame>	17	</Frame>
+			</l_base>
+			<m_base>	w_a21a
+				<Frame>	13	</Frame>
+			</m_base>
+			<s_base>	w_a21a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	w_a21a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx82>
+		<Idx83>	4
+			<l_base>	w_a21a
+				<Frame>	23	</Frame>
+			</l_base>
+			<m_base>	w_a21a
+				<Frame>	23	</Frame>
+			</m_base>
+			<s_base>	w_a21a
+				<Frame>	23	</Frame>
+			</s_base>
+			<x_base>	w_a21a
+				<Frame>	25	</Frame>
+			</x_base>
+		</Idx83>
+		<Idx166>	3
+			<l_base>	r_a02a
+				<Frame>	8	</Frame>
+			</l_base>
+			<m_base>	r_a02a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	r_a02a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	r_a02a
+				<Frame>	9	</Frame>
+			</x_base>
+		</Idx166>
+		<Idx167>	4
+			<l_base>	r_a02a
+				<Frame>	14	</Frame>
+			</l_base>
+			<m_base>	r_a02a
+				<Frame>	15	</Frame>
+			</m_base>
+			<s_base>	r_a02a
+				<Frame>	17	</Frame>
+			</s_base>
+			<x_base>	r_a02a
+				<Frame>	14	</Frame>
+			</x_base>
+		</Idx167>
+		<Idx170>	3
+			<l_base>	r_a03a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a03a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	r_a03a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	r_a03a
+				<Frame>	9	</Frame>
+			</x_base>
+		</Idx170>
+		<Idx171>	4
+			<l_base>	r_a03a
+				<Frame>	17	</Frame>
+			</l_base>
+			<m_base>	r_a03a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	r_a03a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	r_a03a
+				<Frame>	18	</Frame>
+			</x_base>
+		</Idx171>
+		<Idx174>	3
+			<l_base>	r_a04a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a04a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	r_a04a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	r_a04a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx174>
+		<Idx175>	4
+			<l_base>	r_a04a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	r_a04a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	r_a04a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	r_a04a
+				<Frame>	16	</Frame>
+			</x_base>
+		</Idx175>
+		<Idx178>	3
+			<l_base>	r_a05a
+				<Frame>	7	</Frame>
+			</l_base>
+			<m_base>	r_a05a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	r_a05a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	r_a05a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx178>
+		<Idx179>	4
+			<l_base>	r_a05a
+				<Frame>	13	</Frame>
+			</l_base>
+			<m_base>	r_a05a
+				<Frame>	15	</Frame>
+			</m_base>
+			<s_base>	r_a05a
+				<Frame>	13	</Frame>
+			</s_base>
+			<x_base>	r_a05a
+				<Frame>	14	</Frame>
+			</x_base>
+		</Idx179>
+		<Idx182>	5
+			<l_base>	r_a06a
+				<Frame>	10	</Frame>
+			</l_base>
+			<m_base>	r_a06a
+				<Frame>	10	</Frame>
+			</m_base>
+			<s_base>	r_a06a
+				<Frame>	10	</Frame>
+			</s_base>
+			<x_base>	r_a06a
+				<Frame>	9	</Frame>
+			</x_base>
+		</Idx182>
+		<Idx183>	6
+			<l_base>	r_a06a
+				<Frame>	16	</Frame>
+			</l_base>
+			<m_base>	r_a06a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	r_a06a
+				<Frame>	16	</Frame>
+			</s_base>
+			<x_base>	r_a06a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx183>
+		<Idx186>	5
+			<l_base>	r_a07a
+				<Frame>	11	</Frame>
+			</l_base>
+			<m_base>	r_a07a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	r_a07a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	r_a07a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx186>
+		<Idx187>	6
+			<l_base>	r_a07a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	r_a07a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	r_a07a
+				<Frame>	16	</Frame>
+			</s_base>
+			<x_base>	r_a07a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx187>
+		<Idx190>	5
+			<l_base>	r_a08a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a08a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	r_a08a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	r_a08a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx190>
+		<Idx191>	6
+			<l_base>	r_a08a
+				<Frame>	13	</Frame>
+			</l_base>
+			<m_base>	r_a08a
+				<Frame>	15	</Frame>
+			</m_base>
+			<s_base>	r_a08a
+				<Frame>	14	</Frame>
+			</s_base>
+			<x_base>	r_a08a
+				<Frame>	13	</Frame>
+			</x_base>
+		</Idx191>
+		<Idx206>	3
+			<l_base>	r_a12a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a12a
+				<Frame>	11	</Frame>
+			</m_base>
+			<s_base>	r_a12a
+				<Frame>	11	</Frame>
+			</s_base>
+			<x_base>	r_a12a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx206>
+		<Idx207>	4
+			<l_base>	r_a12a
+				<Frame>	15	</Frame>
+			</l_base>
+			<m_base>	r_a12a
+				<Frame>	16	</Frame>
+			</m_base>
+			<s_base>	r_a12a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	r_a12a
+				<Frame>	15	</Frame>
+			</x_base>
+		</Idx207>
+		<Idx226>	1
+			<l_base>	r_a17a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a17a
+				<Frame>	9	</Frame>
+			</m_base>
+			<s_base>	r_a17a
+				<Frame>	9	</Frame>
+			</s_base>
+			<x_base>	r_a17a
+				<Frame>	9	</Frame>
+			</x_base>
+		</Idx226>
+		<Idx227>	2
+			<l_base>	r_a17a
+				<Frame>	16	</Frame>
+			</l_base>
+			<m_base>	r_a17a
+				<Frame>	15	</Frame>
+			</m_base>
+			<s_base>	r_a17a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	r_a17a
+				<Frame>	16	</Frame>
+			</x_base>
+		</Idx227>
+		<Idx234>	3
+			<l_base>	r_a19a
+				<Frame>	9	</Frame>
+			</l_base>
+			<m_base>	r_a19a
+				<Frame>	9	</Frame>
+			</m_base>
+			<s_base>	r_a19a
+				<Frame>	9	</Frame>
+			</s_base>
+			<x_base>	r_a19a
+				<Frame>	7	</Frame>
+			</x_base>
+		</Idx234>
+		<Idx235>	4
+			<l_base>	r_a19a
+				<Frame>	30	</Frame>
+			</l_base>
+			<m_base>	r_a19a
+				<Frame>	31	</Frame>
+			</m_base>
+			<s_base>	r_a19a
+				<Frame>	30	</Frame>
+			</s_base>
+			<x_base>	r_a19a
+				<Frame>	30	</Frame>
+			</x_base>
+		</Idx235>
+		<Idx238>	3
+			<l_base>	r_a20a
+				<Frame>	11	</Frame>
+			</l_base>
+			<m_base>	r_a20a
+				<Frame>	14	</Frame>
+			</m_base>
+			<s_base>	r_a20a
+				<Frame>	13	</Frame>
+			</s_base>
+			<x_base>	r_a20a
+				<Frame>	13	</Frame>
+			</x_base>
+		</Idx238>
+		<Idx239>	4
+			<l_base>	r_a20a
+				<Frame>	22	</Frame>
+			</l_base>
+			<m_base>	r_a20a
+				<Frame>	22	</Frame>
+			</m_base>
+			<s_base>	r_a20a
+				<Frame>	23	</Frame>
+			</s_base>
+			<x_base>	r_a20a
+				<Frame>	23	</Frame>
+			</x_base>
+		</Idx239>
+		<Idx242>	3
+			<l_base>	r_a21a
+				<Frame>	14	</Frame>
+			</l_base>
+			<m_base>	r_a21a
+				<Frame>	13	</Frame>
+			</m_base>
+			<s_base>	r_a21a
+				<Frame>	15	</Frame>
+			</s_base>
+			<x_base>	r_a21a
+				<Frame>	10	</Frame>
+			</x_base>
+		</Idx242>
+		<Idx243>	4
+			<l_base>	r_a21a
+				<Frame>	26	</Frame>
+			</l_base>
+			<m_base>	r_a21a
+				<Frame>	24	</Frame>
+			</m_base>
+			<s_base>	r_a21a
+				<Frame>	26	</Frame>
+			</s_base>
+			<x_base>	r_a21a
+				<Frame>	25	</Frame>
+			</x_base>
+		</Idx243>
+	</BladeLight>
+	<takeWeapon>
+		<walk>
+			<Waist>
+				<l_base>	w_w06a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	w_w06a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	w_w06a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	w_w06a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Waist>
+			<Double>
+				<l_base>	w_w10a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	w_w10a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	w_w10a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	w_w10a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Double>
+			<Back>
+				<l_base>	w_w08a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	w_w08a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	w_w08a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	w_w08a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Back>
+		</walk>
+		<ride>
+			<Waist>
+				<l_base>	r_w06a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	r_w06a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	r_w06a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	r_w06a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Waist>
+			<Back>
+				<l_base>	r_w08a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	r_w08a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	r_w08a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	r_w08a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Back>
+			<Double>
+				<l_base>	r_w10a
+					<Frame>	10	</Frame>
+				</l_base>
+				<x_base>	r_w10a
+					<Frame>	10	</Frame>
+				</x_base>
+				<m_base>	r_w10a
+					<Frame>	10	</Frame>
+				</m_base>
+				<s_base>	r_w10a
+					<Frame>	10	</Frame>
+				</s_base>
+			</Double>
+		</ride>
+	</takeWeapon>
+	<packWeapon>
+		<walk>
+			<Waist>
+				<l_base>	w_w07a
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	w_w07a
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	w_w07a
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	w_w07a
+					<Frame>	20	</Frame>
+				</s_base>
+			</Waist>
+			<Double>
+				<l_base>	w_w11a
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	w_w11a
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	w_w11a
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	w_w11a
+					<Frame>	20	</Frame>
+				</s_base>
+			</Double>
+			<Back>
+				<l_base>	w_w09a
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	w_w09a
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	w_w09a
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	w_w09a
+					<Frame>	20	</Frame>
+				</s_base>
+			</Back>
+		</walk>
+		<ride>
+			<Double>
+				<l_base>	r_w11a
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	r_w11a
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	r_w11a
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	r_w11a
+					<Frame>	20	</Frame>
+				</s_base>
+			</Double>
+			<Back>
+				<l_base>	r_w09
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	r_w09
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	r_w09
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	r_w09
+					<Frame>	20	</Frame>
+				</s_base>
+			</Back>
+			<Waist>
+				<l_base>	r_w07
+					<Frame>	20	</Frame>
+				</l_base>
+				<x_base>	r_w07
+					<Frame>	20	</Frame>
+				</x_base>
+				<m_base>	r_w07
+					<Frame>	20	</Frame>
+				</m_base>
+				<s_base>	r_w07
+					<Frame>	20	</Frame>
+				</s_base>
+			</Waist>
+		</ride>
+	</packWeapon>
+</FrameEventSetting.xml>

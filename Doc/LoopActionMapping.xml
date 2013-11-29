@@ -1,0 +1,32 @@
+<root>
+	<ACT1>
+		<Riding>
+			<body>	r_s01_2a	</body>
+			<down>	r_s01_2b	</down>
+		</Riding>
+		<Walking>
+			<body>	w_s01_2a	</body>
+			<down>	w_s01_2b	</down>
+		</Walking>		
+	</ACT1>
+	<ACT2>
+		<Riding>
+			<body>	r_s02_2a	</body>
+			<down>	r_s02_2b	</down>
+		</Riding>
+		<Walking>
+			<body>	w_s02_2a	</body>
+			<down>	w_s02_2b	</down>
+		</Walking>		
+	</ACT2>
+	<ACT3>
+		<Riding>
+			<body>	r_a18_2a	</body>
+			<down>	r_a18_2b	</down>
+		</Riding>
+		<Walking>
+			<body>	w_a18_2a	</body>
+			<down>	w_a18_2b	</down>
+		</Walking>		
+	</ACT3>
+</root>

@@ -1,0 +1,135 @@
+<systfe30.xml>
+	<component>
+		<serialiseVersionData>	2	</serialiseVersionData>
+		<windFactor_>	0.000000	</windFactor_>
+		<explicitTransform_>	false	</explicitTransform_>
+		<explicitPosition_>	0.000000 0.000000 0.000000	</explicitPosition_>
+		<explicitDirection_>	0.000000 0.000000 1.000000	</explicitDirection_>
+		<localOffset_>	0.000000 0.000000 0.000000	</localOffset_>
+		<maxLod_>	0.000000	</maxLod_>
+		<fixedFrameRate_>	-1.000000	</fixedFrameRate_>
+		<genValidDistance_>	100.000000	</genValidDistance_>
+		<Actions>
+			<Source>
+				<delay_>	0.000000	</delay_>
+				<minimumAge_>	0.000000	</minimumAge_>
+				<name_>	Source 1	</name_>
+				<pPositionSrc>
+					<PointVectorGenerator>
+						<nameID_>	PointVectorGenerator	</nameID_>
+						<position_>	0.000000 0.700000 0.000000	</position_>
+					</PointVectorGenerator>
+				</pPositionSrc>
+				<pVelocitySrc>
+					<PointVectorGenerator>
+						<nameID_>	PointVectorGenerator	</nameID_>
+						<position_>	0.000000 0.000000 0.000000	</position_>
+					</PointVectorGenerator>
+				</pVelocitySrc>
+				<motionTriggered_>	false	</motionTriggered_>
+				<timeTriggered_>	true	</timeTriggered_>
+				<grounded_>	false	</grounded_>
+				<checkWater_>	false	</checkWater_>
+				<dropDistance_>	15.000000	</dropDistance_>
+				<rate_>	2.000000	</rate_>
+				<sensitivity_>	0.100000	</sensitivity_>
+				<maxSpeed_>	0.000000	</maxSpeed_>
+				<activePeriod_>	1.000000	</activePeriod_>
+				<sleepPeriod_>	-1.000000	</sleepPeriod_>
+				<sleepPeriodMax_>	0.000000	</sleepPeriodMax_>
+				<minimumSize_>	1.500000	</minimumSize_>
+				<maximumSize_>	1.500000	</maximumSize_>
+				<forcedUnitSize_>	1	</forcedUnitSize_>
+				<allowedTimeInSeconds_>	1.000000	</allowedTimeInSeconds_>
+				<initialRotation_>	0.000000 0.000000	</initialRotation_>
+				<randomInitialRotation_>	0.000000 0.000000	</randomInitialRotation_>
+				<initialColour_>	0.500000 0.500000 0.500000 1.000000	</initialColour_>
+				<randomSpin_>	false	</randomSpin_>
+				<minSpin_>	0.000000	</minSpin_>
+				<maxSpin_>	0.000000	</maxSpin_>
+				<fixSpinDir_>	false	</fixSpinDir_>
+				<spinDir_>	0.000000 1.000000 0.000000	</spinDir_>
+				<addVelocityDir_>	false	</addVelocityDir_>
+				<ignoreRotation_>	false	</ignoreRotation_>
+				<inheritVelocity_>	0.000000	</inheritVelocity_>
+				<randomMeshSize_>	false	</randomMeshSize_>
+				<minimumSize1_>	1.500000	</minimumSize1_>
+				<maximumSize1_>	1.500000	</maximumSize1_>
+				<minimumSize2_>	0.200000	</minimumSize2_>
+				<maximumSize2_>	0.200000	</maximumSize2_>
+			</Source>
+			<Sink>
+				<delay_>	0.000000	</delay_>
+				<minimumAge_>	0.000000	</minimumAge_>
+				<name_>	Sink 1	</name_>
+				<maximumAge_>	1.000000	</maximumAge_>
+				<minimumSpeed_>	-1.000000	</minimumSpeed_>
+				<outsideOnly_>	false	</outsideOnly_>
+				<SINK_COLLIDE>	false	</SINK_COLLIDE>
+			</Sink>
+			<Scaler>
+				<delay_>	0.000000	</delay_>
+				<minimumAge_>	0.000000	</minimumAge_>
+				<name_>	Scaler 1	</name_>
+				<size_>	0.400000	</size_>
+				<rate_>	7.000000	</rate_>
+				<size1_>	0.400000	</size1_>
+				<rate1_>	7.000000	</rate1_>
+				<size2_>	0.000000	</size2_>
+				<rate2_>	0.000000	</rate2_>
+				<enableSize_>	true	</enableSize_>
+				<enableSize1_>	true	</enableSize1_>
+				<enableSize2_>	true	</enableSize2_>
+				<sizeScalerMode_>	true	</sizeScalerMode_>
+				<scalerMin_>	1.000000	</scalerMin_>
+				<scalerMax_>	2.000000	</scalerMax_>
+				<scalerPeriod_>	-1.000000	</scalerPeriod_>
+				<scalerLoop_>	false	</scalerLoop_>
+			</Scaler>
+			<TintShader>
+				<delay_>	0.000000	</delay_>
+				<minimumAge_>	0.000000	</minimumAge_>
+				<name_>	TintShader 1	</name_>
+				<repeat_>	false	</repeat_>
+				<period_>	1.000000	</period_>
+				<fogAmount_>	0.000000	</fogAmount_>
+				<tints_>
+					<Tint>
+						<time>	0.000000	</time>
+						<color>	0.000000 0.000000 0.000000 1.000000	</color>
+					</Tint>
+					<Tint>
+						<time>	0.044355	</time>
+						<color>	1.000000 0.501961 0.501961 1.000000	</color>
+					</Tint>
+					<Tint>
+						<time>	0.258065	</time>
+						<color>	1.000000 0.639216 0.639216 1.000000	</color>
+					</Tint>
+					<Tint>
+						<time>	1.000000	</time>
+						<color>	0.000000 0.000000 0.000000 1.000000	</color>
+					</Tint>
+				</tints_>
+			</TintShader>
+		</Actions>
+		<Renderer>
+			<SpriteParticleRenderer>
+				<viewDependent_>	false	</viewDependent_>
+				<local_>	true	</local_>
+				<textureName_>	fx/map/armor02.tga	</textureName_>
+				<materialFX_>	0	</materialFX_>
+				<frameCount_>	0	</frameCount_>
+				<frameRate_>	0.000000	</frameRate_>
+				<explicitOrientation_>	0.000000 0.000000 0.000000	</explicitOrientation_>
+				<colorModulate_>	1.000000	</colorModulate_>
+				<addressUVW_>	1	</addressUVW_>
+			</SpriteParticleRenderer>
+		</Renderer>
+		<capacity>	1	</capacity>
+		<boundingBox>
+			<min>	-1.276499 -1.276499 -1.009466	</min>
+			<max>	1.276499 1.966499 1.009466	</max>
+		</boundingBox>
+	</component>
+</systfe30.xml>

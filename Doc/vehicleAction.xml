@@ -1,0 +1,152 @@
+<vehicleAction.xml>
+	<ID1>
+		<ActionName>	v_a06	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow017_a6	</actionSound>
+	</ID1>
+	<ID2>
+		<ActionName>	v_a04	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow017_a4	</actionSound>
+	</ID2>
+	<ID3>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow018	</actionSound>
+	</ID3>
+	<ID4>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	0.350000	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	StoneCar/S02	</actionSound>
+	</ID4>
+	<ID5>
+		<ActionName>	v_a04	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID5>
+	<ID6>
+		<ActionName>	v_a06	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID6>
+	<ID7>
+		<ActionName>	v_a08	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID7>
+	<ID8>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID8>
+	<ID9>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	0.350000	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	StoneCar/S02	</actionSound>
+	</ID9>
+	<ID10>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Ram/Ram001	</actionSound>
+	</ID10>
+	<ID11>
+		<ActionName>	v_a02	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Ram/Ram002	</actionSound>
+	</ID11>
+	<ID12>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	StoneCar/S02b	</actionSound>
+	</ID12>
+	<ID13>
+		<ActionName>	v_a06	</ActionName>
+		<Delay>	0.400000	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow017_ax6	</actionSound>
+	</ID13>
+	<ID14>
+		<ActionName>	v_a04	</ActionName>
+		<Delay>	0.400000	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow017_ax4	</actionSound>
+	</ID14>
+	<ID15>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	0.800000	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	bow/bow018_ax1	</actionSound>
+	</ID15>
+	<ID16>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	StoneCar/S02	</actionSound>
+	</ID16>
+	<ID17>
+		<ActionName>	v_a04	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID17>
+	<ID18>
+		<ActionName>	v_a06	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID18>
+	<ID19>
+		<ActionName>	v_a08	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID19>
+	<ID20>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID20>
+	<ID21>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Firework/s06_c1	</actionSound>
+	</ID21>
+	<ID22>
+		<ActionName>	v_a02	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Firework/s06_c2	</actionSound>
+	</ID22>
+	<ID23>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	</actionSound>
+	</ID23>
+	<ID24>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Ram/Ram003	</actionSound>
+	</ID24>
+	<ID25>
+		<ActionName>	v_a01	</ActionName>
+		<Delay>	</Delay>
+		<Speed>	</Speed>
+		<actionSound>	Ram/Ram004	</actionSound>
+	</ID25>
+</vehicleAction.xml>
