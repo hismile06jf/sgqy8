@@ -14,6 +14,7 @@ Category {
 	Tags { "Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent" }
 	Blend One OneMinusSrcAlpha
 	Cull Off Lighting Off ZTest Always ZWrite Off Fog { Color (0,0,0,0) }
+	//Cull Off Lighting Off ZWrite Off Fog { Color (0,0,0,0) }
 	
 	BindChannels {
 		Bind "Color", color

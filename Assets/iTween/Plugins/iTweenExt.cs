@@ -105,9 +105,10 @@ public partial class iTween
 		{
 			target.transform.localPosition = nodes[0];
 		}
-		
+
 		//"looptype", LoopType.loop
-		Hashtable args = iTween.Hash("path", nodes, "speed", speed, "easetype", easyType.ToString());
+		Hashtable args = iTween.Hash("path", nodes, "speed", speed, "easetype", easyType.ToString(), "looptype", LoopType.loop);
+		//args["looptype"] = LoopType.loop.ToString();
 		if(null != updateFuncName) 
 		{
 			args["onupdate"] = updateFuncName;
