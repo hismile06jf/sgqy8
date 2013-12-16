@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 public class AnimQueueInfo
 {
-	public AnimQueueInfo(string name, bool loaded)
+	public AnimQueueInfo(EAnimType type, string name, bool loaded)
 	{
+		animType = type;
 		animName = name;
 		isLoad = loaded;
 	}
-	
+
+	public EAnimType animType;
 	public string animName;
 	public bool isLoad;
 }
@@ -104,7 +106,7 @@ public partial class Role
 				LoadAnim(GetAnimPath(animName));
 			}
 			
-			playAnimList.Add(new AnimQueueInfo(animName, isLoad));
+			playAnimList.Add(new AnimQueueInfo(animList[i], animName, isLoad));
 		}
 		
 		playAnimListTotalTime= totalTime;
@@ -115,7 +117,7 @@ public partial class Role
 	public void LoadAnim(string animPath)
 	{
 		if(listAnimation.Contains(animPath)) return;		
-		AnimationMgr.Instance.LoadAnimation(animPath, OnAnimationLoadCallBack, null);
+		AnimationMgr.Instance.LoadAnimation(animPath, OnAnimationLoadCallBack, null, null);
 	}
 	
 	bool IsAnimQueueReady
@@ -160,6 +162,7 @@ public partial class Role
 		state.speed = playAnimListSpeed;
 		TimeMgr.Instance.Exec(AnimQueuePlayFinished, 0, (int)(state.clip.length / playAnimListSpeed * 1000f));
 		RoleAnimation.Play(state.name);
+		OnSkillAnimPlayCallBack(playAnimList[0].animType, true);
 		isAnimListPlaying = true;
 	}
 	
@@ -168,13 +171,16 @@ public partial class Role
 	{
 		int currIndex = (int)param;
 		if(!IsAnimQueueReady || currIndex < 0 || currIndex >= playAnimList.Count) return;
-		
+
+		//notify play finished
+		OnSkillAnimPlayCallBack(playAnimList[currIndex].animType, false);
+
+		//
 		currIndex++;
-		
+
 		//play finished
 		if(currIndex == playAnimList.Count)
 		{
-			//
 			isAnimListPlaying = false;
 			playAnimList.Clear();
 			PlayAnim(EAnimType.Idle);
@@ -202,11 +208,12 @@ public partial class Role
 		time /= playAnimListSpeed;
 		
 		state.speed = playAnimListSpeed;
-		RoleAnimation.Play(clip.name);
 		TimeMgr.Instance.Exec(AnimQueuePlayFinished, currIndex, (int)(time * 1000f));
+		RoleAnimation.Play(clip.name);
+		OnSkillAnimPlayCallBack(playAnimList[currIndex-1].animType, true);
 	}
 	
-	void OnAnimationLoadCallBack(string resPath, AnimationClip clip)
+	void OnAnimationLoadCallBack(string resPath, AnimationClip clip, object userParam)
 	{
 		if(null == clip) return;
 		

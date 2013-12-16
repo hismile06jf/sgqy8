@@ -24,12 +24,12 @@ public class AnimationTest : MonoBehaviour {
 		objM.animation.RemoveClip(lastName);
 		AnimationMgr.Instance.UnLoadAnimation(animPath[lastIndex]);
 		if(loadIndex >= animPath.Length) loadIndex = 0;
-		AnimationMgr.Instance.LoadAnimation(animPath[loadIndex], OnAnimLoad, OnAninLoading);
+		AnimationMgr.Instance.LoadAnimation(animPath[loadIndex], OnAnimLoad, OnAninLoading, null);
 		lastIndex = loadIndex;
 		loadIndex++;
 	}
 	
-	void OnAnimLoad(string animPath, AnimationClip clip)
+	void OnAnimLoad(string animPath, AnimationClip clip, object userParam)
 	{
 		objM.animation.AddClip(clip, clip.name);
 		objM.animation.wrapMode = WrapMode.Loop;
@@ -37,7 +37,7 @@ public class AnimationTest : MonoBehaviour {
 		lastName = clip.name;
 	}
 	
-	void OnAninLoading(string animPath, float progress)
+	void OnAninLoading(string animPath, float progress, object userParam)
 	{
 		
 	}

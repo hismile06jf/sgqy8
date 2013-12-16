@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ModelTest : MonoBehaviour {
-	
+
+	public GameObject objTarget = null;
 	//file://D:/WorkSpace/sgqy8thunk/AssetBundle/so0009.unity3d
 	public string[] modelPath = new string[0];
 	public Texture[] mainTex = new Texture[0];
@@ -32,6 +33,8 @@ public class ModelTest : MonoBehaviour {
 			//killer.LoadAnim("file://D:/WorkSpace/sgqy8thunk/AssetBundle/r_a02.unity3d");
 			killer.PlayAnim("r_a02");
 			killer.MountRide(111);
+
+			killer.SelectTarget = objTarget;
 		}
 		else
 		{

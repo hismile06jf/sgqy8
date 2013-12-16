@@ -9,7 +9,7 @@ public partial class Role
 	Ride ride;
 	
 	ERoleState currState;
-	
+
 //	~Role()
 //	{
 //		UnMountRide();
@@ -52,6 +52,7 @@ public partial class Role
 		ride = null;
 	}
 	
+
 	public void SetPostion()
 	{
 	}

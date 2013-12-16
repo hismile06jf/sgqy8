@@ -21,14 +21,40 @@ public class ExportAssetBundle : EditorWindow {
 	}
 	
 	[MenuItem("AssetBundle/PC")]
-	static void ExportBundle()
+	static void ExportBundlePC()
 	{
 		target = BuildTarget.StandaloneWindows;
 		string dataPath = Application.dataPath;
 		int pos = dataPath.LastIndexOf("/");
 		dataPath = dataPath.Substring(0, pos);
-		buildDestRootPath = dataPath + "/AssetBundle";
+		buildDestRootPath = dataPath + "/AssetBundle/PC";
 			
+		Object[] objs = Selection.GetFiltered(typeof(Object), SelectionMode.Assets);
+		ExportBundle(objs);
+	}
+
+	[MenuItem("AssetBundle/IOS")]
+	static void ExportBundleIOS()
+	{
+		target = BuildTarget.Android;
+		string dataPath = Application.dataPath;
+		int pos = dataPath.LastIndexOf("/");
+		dataPath = dataPath.Substring(0, pos);
+		buildDestRootPath = dataPath + "/AssetBundle/IOS";
+		
+		Object[] objs = Selection.GetFiltered(typeof(Object), SelectionMode.Assets);
+		ExportBundle(objs);
+	}
+
+	[MenuItem("AssetBundle/Android")]
+	static void ExportBundleAndroid()
+	{
+		target = BuildTarget.iPhone;
+		string dataPath = Application.dataPath;
+		int pos = dataPath.LastIndexOf("/");
+		dataPath = dataPath.Substring(0, pos);
+		buildDestRootPath = dataPath + "/AssetBundle/Android";
+		
 		Object[] objs = Selection.GetFiltered(typeof(Object), SelectionMode.Assets);
 		ExportBundle(objs);
 	}

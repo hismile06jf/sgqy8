@@ -1,18 +1,35 @@
 using System.Collections.Generic;
 
+public class SkillEffect
+{
+	public EAnimType AnimType;
+	public bool EffectBegin;
+	public byte EffectType;
+	public string EffectFile;
+	public float EffectSpeed;
+	public byte EffectHardPoint;	
+
+
+	public EHardPoint TargetHardPoint
+	{
+		get { return (EHardPoint)EffectHardPoint; }
+	}
+	
+	public ESkillEffectType SkillEffectType
+	{
+		get { return (ESkillEffectType)EffectType; }
+	}
+}
+
 public class SkillCfg
 {
 	public int SkillId;
 	public byte AffNum;
 	public byte AffRange;
 	public byte AffDirection;
-	public byte EffectType;
-	public string EffectFile;
-	public float EffectSpeed;
-	public byte EffectHardPoint;
 	public float AnimTime;
 	public List<EAnimType> AnimList;
-	
+	public List<SkillEffect> EffectList;
 	
 	
 	
@@ -36,8 +53,21 @@ public class SkillCfg
 		get { return AnimTime != 0 && null != AnimList && 0 < AnimList.Count; }
 	}
 	
-	public EHardPoint TargetHardPoint
+	public SkillEffect GetAnimEffect(EAnimType type, bool begin)
 	{
-		get { return (EHardPoint)EffectHardPoint; }
+		if(null == EffectList) return null;
+		SkillEffect effect = null;
+		for(int i = 0; i < EffectList.Count; ++i)
+		{
+			effect = EffectList[i];
+			if(null != effect && 
+			   effect.AnimType == type &&
+			   effect.EffectBegin == begin) 
+			{
+				return effect;
+			}
+		}
+
+		return null;
 	}
 }

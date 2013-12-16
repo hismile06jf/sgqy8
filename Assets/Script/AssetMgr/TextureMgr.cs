@@ -32,13 +32,11 @@ public class TextureMgr : MonoBehaviour {
 	
 	LinkedList<ResCounter<Texture2D>> m_listLoadingList = new LinkedList<ResCounter<Texture2D>>();
 	Dictionary<string, ResCounter<Texture2D>> m_dictTexture = new Dictionary<string, ResCounter<Texture2D>>();
-	List<TexLoadParam> m_listTexLoadParam = new List<TexLoadParam>();
 	
 	public void LoadTexture(string filePath, ResParamLoadCallBack<Texture2D> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
 		if(string.IsNullOrEmpty(filePath)) return;
 		// add to list first
-		m_listTexLoadParam.Add(new TexLoadParam(loadCB, filePath, userParam));
 		
 		ResCounter<Texture2D> res = null;
 		if(m_dictTexture.ContainsKey(filePath))
@@ -50,8 +48,8 @@ public class TextureMgr : MonoBehaviour {
 				
 				//if(null != progressCB) res.ProgressCallBack += progressCB;
 				//if(null != loadCB) res.LoadCallBack += loadCB;
-				if(null != progressCB) progressCB(res.ResPath, 1f);
-				OnAssetOK(res);
+				if(null != progressCB) progressCB(res.ResPath, 1f, userParam);
+				if(null != loadCB) loadCB(res.ResPath, res.Res, userParam);
 				return;
 			}
 			
@@ -71,9 +69,11 @@ public class TextureMgr : MonoBehaviour {
 		res.AddRef();
 		m_listLoadingList.AddLast(res);
 		//if(null != loadCB) res.LoadCallBack += loadCB;
-		if(null != progressCB) res.ProgressCallBack += progressCB;
+		if(null != loadCB || null != progressCB) 
+		{
+			res.AddLoadParam(userParam, loadCB, progressCB);	
+		}
 	}
-	
 	public void UnLoadTexture(string filePath)
 	{
 		if(!m_dictTexture.ContainsKey(filePath)) return;
@@ -130,21 +130,8 @@ public class TextureMgr : MonoBehaviour {
 	void OnAssetOK(ResCounter<Texture2D> res)
 	{
 		if(null == res) return;
-		for(int i = m_listTexLoadParam.Count - 1; i >= 0; --i)
-		{
-			TexLoadParam param = m_listTexLoadParam[i];
-			if(null != param && param.filePath == res.ResPath)
-			{				
-				m_listTexLoadParam.RemoveAt(i);
-				if(param.cb != null)
-				{
-					param.cb(res.ResPath, res.Res, param.userParam);
-				}
-			}
-		}
-		//res.LoadCallBack(res.ResPath, res.Res);
-		res.LoadCallBack = null;
-		res.ProgressCallBack = null;
+		res.DispatchLoaCallBack();
+		res.ClearLoadParam();
 	}
 	
 	void OnAssetFailed(ResCounter<Texture2D> res)
@@ -186,13 +173,13 @@ public class TextureMgr : MonoBehaviour {
 				}
 				
 				//object[] allobjs =  res.AssetWWW.assetBundle.LoadAll();
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 				OnAssetLoadCallBack(success, res);
 				m_listLoadingList.RemoveFirst();
 			}
 			else
 			{
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 			}
 		}
 	}

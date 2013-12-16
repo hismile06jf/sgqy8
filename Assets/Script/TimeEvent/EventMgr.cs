@@ -3,13 +3,17 @@ using System.Collections;
 
 public class EventMgr : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	static EventMgr mInstance;
+	static public EventMgr Instance
+	{
+		get {
+			if(null == mInstance) 
+			{
+				mInstance = LogicRoot.Instance.GetSingletonObjectScript<EventMgr>("AssetMgr", "EventMgr");
+			}
+			return mInstance;
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
 }

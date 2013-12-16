@@ -4,11 +4,14 @@ using System.Collections;
 public class FxTracker : MonoBehaviour {
 
 	float time;
-	float elapseTime;
 	public float threshold = 1f;
 	public float speed;
 	Transform cache;
 	public Transform target;
+
+	public object msgParam;
+	public string msgFuncName;
+	public Transform msgReciver;
 
 	MathUtl.CRSpline crSpline;
 
@@ -41,7 +44,6 @@ public class FxTracker : MonoBehaviour {
 			crSpline = new MathUtl.CRSpline(target.position, pos2, pos1, cache.position);
 
 			time = len / speed;
-			elapseTime = 0;
 		}
 	}
 
@@ -55,8 +57,6 @@ public class FxTracker : MonoBehaviour {
 	void Update () {
 		if(null != crSpline && null != target)
 		{
-			elapseTime += Time.deltaTime;
-
 			Vector3 dir = target.position - cache.position;
 			float len = dir.magnitude;
 			Vector3 normal = dir.normalized;
@@ -64,17 +64,23 @@ public class FxTracker : MonoBehaviour {
 			Vector3 vNewPos;
 			Vector3 move = normal * speed * Time.deltaTime;
 			float moveLen = move.magnitude;
-//			if(moveLen >= len)
-//			{
-//				vNewPos = target.position;
-//			}
-//			else
+			if(moveLen >= len)
 			{
-				crSpline.pts[3] = cache.position;
-				crSpline.pts[2] = cache.position + normal * len * 0.3f;
-				crSpline.pts[1] = cache.position + normal * len * 0.6f;
-				crSpline.pts[0] = target.position;
-				vNewPos = crSpline.Interp(moveLen / len);
+				vNewPos = target.position;
+
+				if(null != msgReciver && string.IsNullOrEmpty(msgFuncName))
+				{
+					msgReciver.SendMessage(msgFuncName, msgParam, SendMessageOptions.DontRequireReceiver);
+				}
+			}
+			else
+			{
+				//crSpline.pts[3] = cache.position;
+				//crSpline.pts[2] = cache.position + normal * len * 0.3f;
+				//crSpline.pts[1] = cache.position + normal * len * 0.6f;
+				//crSpline.pts[0] = target.position;
+				//vNewPos = crSpline.Interp(moveLen / len);
+				vNewPos = cache.position + move;
 			}
 
 			cache.position = vNewPos;

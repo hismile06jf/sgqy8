@@ -3,8 +3,32 @@ using System.Collections.Generic;
 
 public partial class Role
 {
+	Vector3 vSelectPos;
 	GameObject objSelectTarget;
+	SkillCfg currSkill;
+
+	public Vector3 SelectTargetPostion
+	{
+		get { return vSelectPos; }
+		set { vSelectPos = value; }
+	}
 	
+	public GameObject SelectTarget
+	{
+		get { return objSelectTarget; }  
+		set { objSelectTarget = value; }
+	}
+
+	public bool isSelectTarget
+	{
+		get { return SelectTarget != null;  }
+	}
+
+	public bool isSelectTargetPostion
+	{
+		get { return vSelectPos != Vector3.zero;  }
+	}
+
 	public bool CanUseSkill
 	{
 		get { return currState != ERoleState.Trade; }
@@ -20,17 +44,18 @@ public partial class Role
 		
 		SkillCfg skill = ResMgr.Instance.GetSkillCfg(skillId);
 		if(null == skill) return;
-		
-		if(skill.IsAffTarget)
+		currSkill = skill;
+
+		if(skill.IsAffTarget && isSelectTarget)
 		{
-			//null != objSelectTarget && 
 			if(skill.IsAnimValid)
 			{
 				PlayAnimQueue(skill.AnimList, time);
 			}
 		}
-		else if(skill.IsAffRange)
+		else if(skill.IsAffRange && isSelectTargetPostion)
 		{
+			//
 		}
 	}
 	
@@ -43,10 +68,35 @@ public partial class Role
 	{
 		//
 	}
-	
-	void OnSkillAnimPlayCallBack()
+
+	/*  begin：true开始播放，false结束播放  */
+	void OnSkillAnimPlayCallBack(EAnimType animType, bool begin)
 	{
+		if(null == currSkill) return;
+
 		//play effect
-		currState = ERoleState.Idle;
+
+		SkillEffect skillEffect = currSkill.GetAnimEffect(animType, begin);
+		if(null != skillEffect)
+		{
+			if(skillEffect.SkillEffectType == ESkillEffectType.User)
+			{
+				//
+			}
+			else if(skillEffect.SkillEffectType == ESkillEffectType.Target)
+			{
+				//
+			}
+			else if(skillEffect.SkillEffectType == ESkillEffectType.SelectPlace)
+			{
+				//
+			}
+			else if(skillEffect.SkillEffectType == ESkillEffectType.TrackTarget)
+			{
+				//
+			}
+		}
+
+
 	}
 }

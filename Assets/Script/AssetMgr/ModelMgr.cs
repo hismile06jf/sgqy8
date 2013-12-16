@@ -52,7 +52,7 @@ public class ModelMgr : MonoBehaviour {
 				
 				//if(null != progressCB) res.ProgressCallBack += progressCB;
 				//if(null != loadCB) res.LoadCallBack += loadCB;
-				if(null != progressCB) progressCB(res.ResPath, 1f);
+				if(null != progressCB) progressCB(res.ResPath, 1f, userParam);
 				OnAssetOK(res);
 				return;
 			}
@@ -62,7 +62,7 @@ public class ModelMgr : MonoBehaviour {
 				{
 					//if(null != loadCB) res.LoadCallBack += loadCB;
 					//if(null != progressCB) res.ProgressCallBack += progressCB;
-					if(null != progressCB) progressCB(res.ResPath, 1f);
+					if(null != progressCB) progressCB(res.ResPath, 1f, userParam);
 					OnAssetLoadCallBack(true, res);
 					return;
 				}
@@ -79,8 +79,10 @@ public class ModelMgr : MonoBehaviour {
 
 		res.AddRef();
 		m_listLoadingList.AddLast(res);
-		//if(null != loadCB) res.LoadCallBack += loadCB;
-		if(null != progressCB) res.ProgressCallBack += progressCB;
+		if(null != progressCB) 
+		{
+			res.AddLoadParam(userParam, null, progressCB);
+		}
 	}
 	
 	public void UnLoadModel(string modelPath)
@@ -205,23 +207,7 @@ public class ModelMgr : MonoBehaviour {
 			//
 		}
 		//res.LoadCallBack(res.ResPath, res.Res);
-		res.LoadCallBack = null;
-		res.ProgressCallBack = null;
-	}
-	
-	//LoadFromBundle saync
-	IEnumerator LoadFromBundle(ResCounter<GameObject> res)
-	{
-		AssetBundleRequest request = res.AssetWWW.assetBundle.LoadAsync("so0009_1", typeof(GameObject));
-		yield return request;
-		
-		res.Res = request.asset as GameObject;
-		if(null != res.LoadCallBack) 
-		{	
-			res.LoadCallBack(res.ResPath, res.Res);
-			res.LoadCallBack = null;
-			res.ProgressCallBack = null;
-		}
+		res.ClearLoadParam();
 	}
 		
 	// Use this for initialization
@@ -252,14 +238,14 @@ public class ModelMgr : MonoBehaviour {
 					res.Bundle = res.AssetWWW.assetBundle;
 				}
 				
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 				
 				OnAssetLoadCallBack(success, res);
 				m_listLoadingList.RemoveFirst();
 			}
 			else
 			{
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 			}
 		}
 	}

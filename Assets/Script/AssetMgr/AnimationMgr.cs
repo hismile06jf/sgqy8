@@ -17,7 +17,7 @@ public class AnimationMgr : MonoBehaviour {
 	
 	LinkedList<ResCounter<AnimationClip>> m_listLoadingList = new LinkedList<ResCounter<AnimationClip>>();
 	Dictionary<string, ResCounter<AnimationClip>> m_dictAnimationClip = new Dictionary<string, ResCounter<AnimationClip>>();
-	public void LoadAnimation(string animPath, ResLoadCallBack<AnimationClip> loadCB, ResLoadProgressCallBack progressCB)
+	public void LoadAnimation(string animPath, ResParamLoadCallBack<AnimationClip> loadCB, ResLoadProgressCallBack progressCB, object userParam)
 	{
 		if(string.IsNullOrEmpty(animPath)) return;
 		
@@ -28,8 +28,8 @@ public class AnimationMgr : MonoBehaviour {
 			if(null != res.Res)
 			{
 				res.AddRef();
-				if(null != progressCB) progressCB(animPath, 1f);
-				if(null != loadCB) loadCB(animPath, res.Res);
+				if(null != progressCB) progressCB(animPath, 1f, userParam);
+				if(null != loadCB) loadCB(animPath, res.Res, userParam);
 				return;
 			}
 		}
@@ -44,8 +44,11 @@ public class AnimationMgr : MonoBehaviour {
 		}
 
 		res.AddRef();
-		if(null != loadCB) res.LoadCallBack += loadCB;
-		if(null != progressCB) res.ProgressCallBack += progressCB;
+
+		if(null != loadCB || null != progressCB) 
+		{
+			res.AddLoadParam(userParam, loadCB, progressCB);
+		}
 	}
 	
 	public void UnLoadAnimation(string animPath)
@@ -92,13 +95,9 @@ public class AnimationMgr : MonoBehaviour {
 			res.AssetWWW.Dispose();
 			res.AssetWWW = null;
 		}
-		
-		if(null != res.LoadCallBack) 
-		{	
-			res.LoadCallBack(res.ResPath, res.Res);
-			res.LoadCallBack = null;
-			res.ProgressCallBack = null;
-		}
+
+		res.DispatchLoaCallBack();
+		res.ClearLoadParam();
 	}
 		
 	// Use this for initialization
@@ -124,14 +123,14 @@ public class AnimationMgr : MonoBehaviour {
 					Debug.LogError("Res Download Failed, respath = " + res.ResPath);
 				}
 				
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 				
 				OnAssetLoadCallBack(success, res);
 				m_listLoadingList.RemoveFirst();
 			}
 			else
 			{
-				if(null != res.ProgressCallBack) res.ProgressCallBack(res.ResPath, res.AssetWWW.progress);
+				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 			}
 		}
 	}

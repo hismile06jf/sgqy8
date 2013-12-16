@@ -4,7 +4,7 @@ public class RoleCfg
 {	
 	static public string GetRoleAnimPath(ERoleType type, string animName)
 	{
-		StringBuilder sb = new StringBuilder("file://D:/WorkSpace/sgqy8thunk/AssetBundle/Characters/animation/");
+		StringBuilder sb = new StringBuilder(AssetPath.GetAssetStorePathWithSlash() + "Characters/animation/");
 		switch(type)
 		{
 		case ERoleType.UserL: sb.Append("user_l"); break;
