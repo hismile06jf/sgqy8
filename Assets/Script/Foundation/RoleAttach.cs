@@ -120,6 +120,24 @@ public partial class Role
 	/*********************************************/
 	/************     Attacth     ****************/
 	/*********************************************/
+	AttachObject GetAttachObject(string hp)
+	{
+		if(string.IsNullOrEmpty(hp)) return null;
+		for(int i = 0; i < listAttachObject.Count; ++i)
+		{
+			AttachObject att = listAttachObject[i];
+			if(att.HardPoint == hp) return listAttachObject[i];
+		}
+		
+		return null;
+	}
+
+	GameObject GetAttachGameObject(string hp)
+	{
+		AttachObject att = GetAttachObject(hp);
+		return null == att ? null : att.Obj;
+	}
+
 	AttachObject GetAttachObject(int modelId, string hp)
 	{
 		if(0 == modelId || string.IsNullOrEmpty(hp)) return null;
@@ -199,6 +217,7 @@ public partial class Role
 		for(int i = 0; i < listReadyAttachObject.Count; ++i)
 		{
 			AttachObject att = listReadyAttachObject[i];
+			listAttachObject.Add(att);
 			AttachObjectToHP(att.Obj, att.HardPoint, true);
 		}
 		listReadyAttachObject.Clear();
@@ -218,7 +237,8 @@ public partial class Role
 			listReadyAttachObject.Add(att);
 			return;
 		}
-		
+
+		listAttachObject.Add(att);
 		att.Obj = model.gameObject;
 		AttachObjectToHP(att.Obj, att.HardPoint, true);
 	}
@@ -239,7 +259,7 @@ public partial class Role
 			
 			if(initByHP)
 			{
-				Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP);
+				Transform hpInit = UnityTools.FindChildRecursion(obj.transform, szHP, true);
 				if(null != hpInit)
 				{
 					vPos = hpInit.localPosition;
@@ -310,13 +330,18 @@ public partial class Role
 	
 	static public GameObject GetHardPointObj(GameObject obj, string szHP)
 	{
-		return UnityTools.FindChildRecursion(obj, szHP);
+		return UnityTools.FindChildRecursion(obj, szHP, true);
 	}
 	
 	static public Transform GetHardPoint(GameObject obj, string szHP)
 	{
 		GameObject objHP = GetHardPointObj(obj, szHP);
 		return null == objHP ? null : objHP.transform;
+	}
+
+	static public Transform GetHardPoint(Transform parent, string szHP)
+	{
+		return UnityTools.FindChildRecursion(parent, szHP, true);
 	}
 }
 

@@ -13,6 +13,9 @@ public class FxTracker : MonoBehaviour {
 	public string msgFuncName;
 	public Transform msgReciver;
 
+	public delegate void OnFxCallBack(object param);
+	public OnFxCallBack onFxCallBack;
+
 	MathUtl.CRSpline crSpline;
 
 	public bool isComplete
@@ -47,15 +50,19 @@ public class FxTracker : MonoBehaviour {
 		}
 	}
 
+	void Awake()
+	{
+		cache = gameObject.transform;
+	}
+
 	// Use this for initialization
 	void Start () {	
-		cache = gameObject.transform;
 		ResetTarget();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(null != crSpline && null != target)
+		if(null != crSpline && null != target && null != cache)
 		{
 			Vector3 dir = target.position - cache.position;
 			float len = dir.magnitude;
@@ -71,6 +78,10 @@ public class FxTracker : MonoBehaviour {
 				if(null != msgReciver && string.IsNullOrEmpty(msgFuncName))
 				{
 					msgReciver.SendMessage(msgFuncName, msgParam, SendMessageOptions.DontRequireReceiver);
+				}
+				if(null != onFxCallBack)
+				{
+					onFxCallBack(msgParam);
 				}
 			}
 			else

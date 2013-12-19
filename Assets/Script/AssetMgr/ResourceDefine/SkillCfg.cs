@@ -6,8 +6,11 @@ public class SkillEffect
 	public bool EffectBegin;
 	public byte EffectType;
 	public string EffectFile;
+	public float EffectTime;
 	public float EffectSpeed;
 	public byte EffectHardPoint;	
+	public byte EffectFireSrc;
+	public byte EffectFireSrcHardPoint;
 
 
 	public EHardPoint TargetHardPoint
@@ -18,6 +21,16 @@ public class SkillEffect
 	public ESkillEffectType SkillEffectType
 	{
 		get { return (ESkillEffectType)EffectType; }
+	}
+
+	public ESkillFireSrc SkillFireSrc
+	{
+		get { return (ESkillFireSrc)EffectFireSrc; }
+	}
+
+	public EHardPoint SkillFireSrcHardPoint
+	{
+		get { return (EHardPoint)EffectFireSrcHardPoint; }
 	}
 }
 

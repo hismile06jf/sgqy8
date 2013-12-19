@@ -38,7 +38,7 @@ public class ModelTest : MonoBehaviour {
 		}
 		else
 		{
-			float time = Random.Range(1f, 5f);
+			float time = Random.Range(1f, 3f);
 			killer.UseSkill(1, time);
 			//Debug.Log("time = " + time.ToString());
 		}

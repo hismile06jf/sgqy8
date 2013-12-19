@@ -210,7 +210,7 @@ public partial class Role
 		state.speed = playAnimListSpeed;
 		TimeMgr.Instance.Exec(AnimQueuePlayFinished, currIndex, (int)(time * 1000f));
 		RoleAnimation.Play(clip.name);
-		OnSkillAnimPlayCallBack(playAnimList[currIndex-1].animType, true);
+		OnSkillAnimPlayCallBack(playAnimList[currIndex].animType, true);
 	}
 	
 	void OnAnimationLoadCallBack(string resPath, AnimationClip clip, object userParam)

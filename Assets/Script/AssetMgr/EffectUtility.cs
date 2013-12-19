@@ -61,7 +61,7 @@ public class EffectUtility
 	static public void PlayEffect(string fxPath, float time, Transform parent)
 	{
 		FxPlayParam param = new FxPlayParam(fxPath, time, parent, Vector3.zero, null, null);
-
+		OnPlayNewEffect(param);
 	}
 
 	/// <summary>
@@ -70,7 +70,7 @@ public class EffectUtility
 	static public void PlayEffect(string fxPath, float time, Transform parent, Vector3 vOffset)
 	{
 		FxPlayParam param = new FxPlayParam(fxPath, time, parent, vOffset, null, null);
-		
+		OnPlayNewEffect(param);
 	}
 
 	/// <summary>
@@ -79,6 +79,7 @@ public class EffectUtility
 	static public void PlayEffect(string fxPath, float time, Transform parent, object userParam, OnFxPlayCallBack cb)
 	{
 		FxPlayParam param = new FxPlayParam(fxPath, time, parent, Vector3.zero, userParam, cb);
+		OnPlayNewEffect(param);
 	}
 
 	/// <summary>
@@ -87,6 +88,16 @@ public class EffectUtility
 	static public void PlayEffect(string fxPath, float time, Transform parent, Vector3 vOffset, object userParam, OnFxPlayCallBack cb)
 	{
 		FxPlayParam param = new FxPlayParam(fxPath, time, parent, vOffset, userParam, cb);
+		OnPlayNewEffect(param);
+	}
+
+	/// <summary>
+	/// Stop the effect.
+	/// </summary>
+	static public void DestroyEffect(FxPlayParam fx)
+	{
+		if(null == fx) return;
+		OnEffectPlayFinished(fx);
 	}
 
 	/// <summary>
@@ -104,6 +115,11 @@ public class EffectUtility
 	static void RemoveEffect(FxPlayParam param)
 	{
 		if(null == param) return;
+		if(null != param.objFx) 
+		{
+			GameObject.Destroy(param.objFx);
+		}
+
 		listLoading.Remove(param);
 		EffectMgr.Instance.UnLoadEffect(param.fileName);
 	}
@@ -113,23 +129,22 @@ public class EffectUtility
 		FxPlayParam fx = (FxPlayParam)userParam;
 		if(null == fx) return;
 
-		fx.objFx = objFx;
-
-		fx.DispatchState(FxPlayState.Begin);
-		if(null == objFx)
+		fx.objFx = GameObject.Instantiate(objFx) as GameObject;
+		if(null == fx.objFx)
 		{
 			fx.DispatchState(FxPlayState.End);
 			RemoveEffect(fx);
 			return;
 		}
 
-		objFx.transform.parent = fx.transTarget;
-		objFx.transform.localPosition = fx.vOffsetPos;
-		objFx.transform.localRotation = Quaternion.identity;
-		objFx.transform.localScale = Vector3.one;
+		//fx.objFx.SetActive(true);
+		fx.objFx.transform.parent = fx.transTarget;
+		fx.objFx.transform.localPosition = fx.vOffsetPos;
+		fx.objFx.transform.localRotation = Quaternion.identity;
+		fx.objFx.transform.localScale = Vector3.one;
 
-		ParticleSystem[] cm = objFx.GetComponents<ParticleSystem>();
-		ParticleSystem[] child = objFx.GetComponentsInChildren<ParticleSystem>();
+		ParticleSystem[] cm = fx.objFx.GetComponents<ParticleSystem>();
+		ParticleSystem[] child = fx.objFx.GetComponentsInChildren<ParticleSystem>();
 		foreach(ParticleSystem p in cm)
 		{
 			p.Play();
@@ -139,7 +154,12 @@ public class EffectUtility
 			p.Play();
 		}
 
-		TimeMgr.Instance.Exec(OnEffectPlayFinished, fx, (int)(fx.lifeTime * 1000f));
+		if(fx.lifeTime > 0f)
+		{
+			TimeMgr.Instance.Exec(OnEffectPlayFinished, fx, (int)(fx.lifeTime * 1000f));
+		}
+
+		fx.DispatchState(FxPlayState.Begin);
 	}
 
 	static void OnEffectPlayFinished(object param)

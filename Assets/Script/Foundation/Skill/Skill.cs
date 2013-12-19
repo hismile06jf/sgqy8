@@ -8,6 +8,14 @@ public enum ESkillEffectType
 	User,
 }
 
+public enum ESkillFireSrc
+{
+	WeaponLeft,
+	WeaponRight,
+	Ride,
+	Role,
+}
+
 public enum ESkillDir
 {
 	Fore,

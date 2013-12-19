@@ -64,7 +64,9 @@ public class EffectMgr : MonoBehaviour {
 	
 	void UnLoadRes(ResCounter<GameObject> res)
 	{
+		if(null == res) return;
 		if(null != res.Res) Object.DestroyImmediate(res.Res, true);
+		if(null != res.Bundle) res.Bundle.Unload(true);
 		Resources.UnloadUnusedAssets();
 	}
 	
@@ -76,9 +78,9 @@ public class EffectMgr : MonoBehaviour {
 			return;
 		}
 		
-		if(success && null != res.AssetWWW && null != res.AssetWWW.assetBundle)
+		if(success && null == res.Res && null != res.Bundle)
 		{
-			GameObject gameObj = res.AssetWWW.assetBundle.mainAsset as GameObject;
+			GameObject gameObj = res.Bundle.mainAsset as GameObject;
 			res.Res = gameObj;
 
 			/*  调用Unload(false)的话会减少asset数量，但是很少，测试只有1，而且只能调用一次，下次调用Unload(true)时，不会卸载资源  */
@@ -123,7 +125,12 @@ public class EffectMgr : MonoBehaviour {
 				{
 					Debug.LogError("Res Download Failed, respath = " + res.ResPath);
 				}
-				
+
+				if(null != res.AssetWWW)
+				{
+					res.Bundle = res.AssetWWW.assetBundle;
+				}
+
 				res.DispatchProgress(res.ResPath, res.AssetWWW.progress);
 				
 				OnAssetLoadCallBack(success, res);

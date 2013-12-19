@@ -25,7 +25,7 @@ public class ResMgr
 			{
 				model88 = new ModelCfg();
 				model88.Id = 88;
-				model88.FilePath = AssetPath.GetAssetStorePathWithSlash() + "we0088.unity3d";
+				model88.FilePath = AssetPath.GetAssetStorePathWithSlash() + "Characters/weapon/we0088/we0088_1.unity3d";
 			}
 			
 			return model88;
@@ -37,14 +37,14 @@ public class ResMgr
 			{
 				model09 = new ModelCfg();				
 				model09.Id = 9;
-				model09.FilePath = AssetPath.GetAssetStorePathWithSlash() + "so0009.unity3d";
+				model09.FilePath = AssetPath.GetAssetStorePathWithSlash() + "Characters/npc/so0009/so0009_1.unity3d";
 				
 				model09.MtrlList = new List<ModelMtrl>();
 				ModelMtrl mtrl = new ModelMtrl();
 				mtrl.Name = "so0009";
 				mtrl.TexList = new List<MtrlTex>();
-				mtrl.TexList.Add(new MtrlTex("_MainTex", AssetPath.GetAssetStorePathWithSlash() + "Textures/so0009.unity3d"));
-				mtrl.TexList.Add(new MtrlTex("_ClothTex", AssetPath.GetAssetStorePathWithSlash() + "Textures/so0009_cloth.unity3d"));
+				mtrl.TexList.Add(new MtrlTex("_MainTex", AssetPath.GetAssetStorePathWithSlash() + "Characters/npc/so0009/so0009.unity3d"));
+				mtrl.TexList.Add(new MtrlTex("_ClothTex", AssetPath.GetAssetStorePathWithSlash() + "Characters/npc/so0009/so0025_cloth.unity3d"));
 				
 				model09.MtrlList.Add(mtrl);
 			}
@@ -80,11 +80,14 @@ public class ResMgr
 
 			SkillEffect eff = new SkillEffect();
 			eff.AnimType = EAnimType.Attack_Arrow_Fire;
-			eff.EffectBegin = false;
-			eff.EffectType = (byte)ESkillEffectType.Target;
-			eff.EffectFile = AssetPath.GetAssetStorePathWithSlash() + "Effect/efftest.unity3d";
-			eff.EffectSpeed = 1f;
+			eff.EffectBegin = true;
+			eff.EffectType = (byte)ESkillEffectType.TrackTarget;
+			eff.EffectFile = AssetPath.GetAssetStorePathWithSlash() + "Particle/Arrow001.unity3d";
+			eff.EffectTime = 0f;
+			eff.EffectSpeed = 50f;
 			eff.EffectHardPoint = (byte)EHardPoint.Back;
+			eff.EffectFireSrc = (byte)ESkillFireSrc.WeaponLeft;
+			eff.EffectFireSrcHardPoint = (byte)EHardPoint.Effect;
 
 			skill001.EffectList = new List<SkillEffect>();
 			skill001.EffectList.Add(eff);
