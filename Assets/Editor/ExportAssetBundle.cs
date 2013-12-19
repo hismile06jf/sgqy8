@@ -100,7 +100,15 @@ public class ExportAssetBundle : EditorWindow {
 		
 		return go.tag == EAssetType.UI.ToString();
 	}
-	
+
+	static bool IsFx(Object obj)
+	{
+		if(!(obj is GameObject)) return false;
+		GameObject go = obj as GameObject;
+		
+		return go.tag == EAssetType.Fx.ToString();
+	}
+
 	static bool IsSound(Object obj)
 	{
 		return obj is AudioClip;
@@ -142,6 +150,15 @@ public class ExportAssetBundle : EditorWindow {
 				subPath = subPath.Replace(".prefab", "");
 			}
 			else if(IsUI(obj))
+			{
+				subPath = subPath.Replace(".prefab", "");
+			}
+			else if(IsTex(obj))
+			{
+				//.dds .png etc.
+				subPath = subPath.Substring(0, subPath.LastIndexOf("."));
+			}
+			else if(IsFx(obj))
 			{
 				subPath = subPath.Replace(".prefab", "");
 			}
